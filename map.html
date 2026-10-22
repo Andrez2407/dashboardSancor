@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mapa de reclamos</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&display=swap">
+<style>
+ .leaflet-pane, .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-tile-container, .leaflet-pane > svg, .leaflet-pane > canvas, .leaflet-zoom-box, .leaflet-image-layer, .leaflet-layer { position: absolute; left: 0; top: 0; } .leaflet-container { overflow: hidden; } .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow { -webkit-user-select: none; -moz-user-select: none; user-select: none; -webkit-user-drag: none; } .leaflet-tile::selection { background: transparent; } .leaflet-safari .leaflet-tile { image-rendering: -webkit-optimize-contrast; } .leaflet-safari .leaflet-tile-container { width: 1600px; height: 1600px; -webkit-transform-origin: 0 0; } .leaflet-marker-icon, .leaflet-marker-shadow { display: block; } .leaflet-container .leaflet-overlay-pane svg { max-width: none !important; max-height: none !important; } .leaflet-container .leaflet-marker-pane img, .leaflet-container .leaflet-shadow-pane img, .leaflet-container .leaflet-tile-pane img, .leaflet-container img.leaflet-image-layer, .leaflet-container .leaflet-tile { max-width: none !important; max-height: none !important; width: auto; padding: 0; } .leaflet-container img.leaflet-tile { mix-blend-mode: plus-lighter; } .leaflet-container.leaflet-touch-zoom { -ms-touch-action: pan-x pan-y; touch-action: pan-x pan-y; } .leaflet-container.leaflet-touch-drag { -ms-touch-action: pinch-zoom; touch-action: none; touch-action: pinch-zoom; } .leaflet-container.leaflet-touch-drag.leaflet-touch-zoom { -ms-touch-action: none; touch-action: none; } .leaflet-container { -webkit-tap-highlight-color: transparent; } .leaflet-container a { -webkit-tap-highlight-color: rgba(51, 181, 229, 0.4); } .leaflet-tile { filter: inherit; visibility: hidden; } .leaflet-tile-loaded { visibility: inherit; } .leaflet-zoom-box { width: 0; height: 0; -moz-box-sizing: border-box; box-sizing: border-box; z-index: 800; } .leaflet-overlay-pane svg { -moz-user-select: none; } .leaflet-pane { z-index: 400; } .leaflet-tile-pane { z-index: 200; } .leaflet-overlay-pane { z-index: 400; } .leaflet-shadow-pane { z-index: 500; } .leaflet-marker-pane { z-index: 600; } .leaflet-tooltip-pane { z-index: 650; } .leaflet-popup-pane { z-index: 700; } .leaflet-map-pane canvas { z-index: 100; } .leaflet-map-pane svg { z-index: 200; } .leaflet-vml-shape { width: 1px; height: 1px; } .lvml { display: inline-block; position: absolute; } .leaflet-control { position: relative; z-index: 800; pointer-events: visiblePainted; pointer-events: auto; } .leaflet-top, .leaflet-bottom { position: absolute; z-index: 1000; pointer-events: none; } .leaflet-top { top: 0; } .leaflet-right { right: 0; } .leaflet-bottom { bottom: 0; } .leaflet-left { left: 0; } .leaflet-control { float: left; clear: both; } .leaflet-right .leaflet-control { float: right; } .leaflet-top .leaflet-control { margin-top: 10px; } .leaflet-bottom .leaflet-control { margin-bottom: 10px; } .leaflet-left .leaflet-control { margin-left: 10px; } .leaflet-right .leaflet-control { margin-right: 10px; } .leaflet-fade-anim .leaflet-popup { opacity: 0; -webkit-transition: opacity 0.2s linear; -moz-transition: opacity 0.2s linear; transition: opacity 0.2s linear; } .leaflet-fade-anim .leaflet-map-pane .leaflet-popup { opacity: 1; } .leaflet-zoom-animated { -webkit-transform-origin: 0 0; -ms-transform-origin: 0 0; transform-origin: 0 0; } svg.leaflet-zoom-animated { will-change: transform; } .leaflet-zoom-anim .leaflet-zoom-animated { -webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1); -moz-transition: -moz-transform 0.25s cubic-bezier(0,0,0.25,1); transition: transform 0.25s cubic-bezier(0,0,0.25,1); } .leaflet-zoom-anim .leaflet-tile, .leaflet-pan-anim .leaflet-tile { -webkit-transition: none; -moz-transition: none; transition: none; } .leaflet-zoom-anim .leaflet-zoom-hide { visibility: hidden; } .leaflet-interactive { cursor: pointer; } .leaflet-grab { cursor: -webkit-grab; cursor: -moz-grab; cursor: grab; } .leaflet-crosshair, .leaflet-crosshair .leaflet-interactive { cursor: crosshair; } .leaflet-popup-pane, .leaflet-control { cursor: auto; } .leaflet-dragging .leaflet-grab, .leaflet-dragging .leaflet-grab .leaflet-interactive, .leaflet-dragging .leaflet-marker-draggable { cursor: move; cursor: -webkit-grabbing; cursor: -moz-grabbing; cursor: grabbing; } .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-image-layer, .leaflet-pane > svg path, .leaflet-tile-container { pointer-events: none; } .leaflet-marker-icon.leaflet-interactive, .leaflet-image-layer.leaflet-interactive, .leaflet-pane > svg path.leaflet-interactive, svg.leaflet-image-layer.leaflet-interactive path { pointer-events: visiblePainted; pointer-events: auto; } .leaflet-container { background: #ddd; outline-offset: 1px; } .leaflet-container a { color: #0078A8; } .leaflet-zoom-box { border: 2px dotted #38f; background: rgba(255,255,255,0.5); } .leaflet-container { font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; font-size: 12px; font-size: 0.75rem; line-height: 1.5; } .leaflet-bar { box-shadow: 0 1px 5px rgba(0,0,0,0.65); border-radius: 4px; } .leaflet-bar a { background-color: #fff; border-bottom: 1px solid #ccc; width: 26px; height: 26px; line-height: 26px; display: block; text-align: center; text-decoration: none; color: black; } .leaflet-bar a, .leaflet-control-layers-toggle { background-position: 50% 50%; background-repeat: no-repeat; display: block; } .leaflet-bar a:hover, .leaflet-bar a:focus { background-color: #f4f4f4; } .leaflet-bar a:first-child { border-top-left-radius: 4px; border-top-right-radius: 4px; } .leaflet-bar a:last-child { border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-bottom: none; } .leaflet-bar a.leaflet-disabled { cursor: default; background-color: #f4f4f4; color: #bbb; } .leaflet-touch .leaflet-bar a { width: 30px; height: 30px; line-height: 30px; } .leaflet-touch .leaflet-bar a:first-child { border-top-left-radius: 2px; border-top-right-radius: 2px; } .leaflet-touch .leaflet-bar a:last-child { border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; } .leaflet-control-zoom-in, .leaflet-control-zoom-out { font: bold 18px 'Lucida Console', Monaco, monospace; text-indent: 1px; } .leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out { font-size: 22px; } .leaflet-control-layers { box-shadow: 0 1px 5px rgba(0,0,0,0.4); background: #fff; border-radius: 5px; } .leaflet-control-layers-toggle { width: 36px; height: 36px; } .leaflet-retina .leaflet-control-layers-toggle { background-size: 26px 26px; } .leaflet-touch .leaflet-control-layers-toggle { width: 44px; height: 44px; } .leaflet-control-layers .leaflet-control-layers-list, .leaflet-control-layers-expanded .leaflet-control-layers-toggle { display: none; } .leaflet-control-layers-expanded .leaflet-control-layers-list { display: block; position: relative; } .leaflet-control-layers-expanded { padding: 6px 10px 6px 6px; color: #333; background: #fff; } .leaflet-control-layers-scrollbar { overflow-y: scroll; overflow-x: hidden; padding-right: 5px; } .leaflet-control-layers-selector { margin-top: 2px; position: relative; top: 1px; } .leaflet-control-layers label { display: block; font-size: 13px; font-size: 1.08333em; } .leaflet-control-layers-separator { height: 0; border-top: 1px solid #ddd; margin: 5px -10px 5px -6px; } .leaflet-default-icon-path { } .leaflet-container .leaflet-control-attribution { background: #fff; background: rgba(255, 255, 255, 0.8); margin: 0; } .leaflet-control-attribution, .leaflet-control-scale-line { padding: 0 5px; color: #333; line-height: 1.4; } .leaflet-control-attribution a { text-decoration: none; } .leaflet-control-attribution a:hover, .leaflet-control-attribution a:focus { text-decoration: underline; } .leaflet-attribution-flag { display: inline !important; vertical-align: baseline !important; width: 1em; height: 0.6669em; } .leaflet-left .leaflet-control-scale { margin-left: 5px; } .leaflet-bottom .leaflet-control-scale { margin-bottom: 5px; } .leaflet-control-scale-line { border: 2px solid #777; border-top: none; line-height: 1.1; padding: 2px 5px 1px; white-space: nowrap; -moz-box-sizing: border-box; box-sizing: border-box; background: rgba(255, 255, 255, 0.8); text-shadow: 1px 1px #fff; } .leaflet-control-scale-line:not(:first-child) { border-top: 2px solid #777; border-bottom: none; margin-top: -2px; } .leaflet-control-scale-line:not(:first-child):not(:last-child) { border-bottom: 2px solid #777; } .leaflet-touch .leaflet-control-attribution, .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar { box-shadow: none; } .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar { border: 2px solid rgba(0,0,0,0.2); background-clip: padding-box; } .leaflet-popup { position: absolute; text-align: center; margin-bottom: 20px; } .leaflet-popup-content-wrapper { padding: 1px; text-align: left; border-radius: 12px; } .leaflet-popup-content { margin: 13px 24px 13px 20px; line-height: 1.3; font-size: 13px; font-size: 1.08333em; min-height: 1px; } .leaflet-popup-content p { margin: 17px 0; margin: 1.3em 0; } .leaflet-popup-tip-container { width: 40px; height: 20px; position: absolute; left: 50%; margin-top: -1px; margin-left: -20px; overflow: hidden; pointer-events: none; } .leaflet-popup-tip { width: 17px; height: 17px; padding: 1px; margin: -10px auto 0; pointer-events: auto; -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); } .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: white; color: #333; box-shadow: 0 3px 14px rgba(0,0,0,0.4); } .leaflet-container a.leaflet-popup-close-button { position: absolute; top: 0; right: 0; border: none; text-align: center; width: 24px; height: 24px; font: 16px/24px Tahoma, Verdana, sans-serif; color: #757575; text-decoration: none; background: transparent; } .leaflet-container a.leaflet-popup-close-button:hover, .leaflet-container a.leaflet-popup-close-button:focus { color: #585858; } .leaflet-popup-scrolled { overflow: auto; } .leaflet-oldie .leaflet-popup-content-wrapper { -ms-zoom: 1; } .leaflet-oldie .leaflet-popup-tip { width: 24px; margin: 0 auto; -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)"; filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678); } .leaflet-oldie .leaflet-control-zoom, .leaflet-oldie .leaflet-control-layers, .leaflet-oldie .leaflet-popup-content-wrapper, .leaflet-oldie .leaflet-popup-tip { border: 1px solid #999; } .leaflet-div-icon { background: #fff; border: 1px solid #666; } .leaflet-tooltip { position: absolute; padding: 6px; background-color: #fff; border: 1px solid #fff; border-radius: 3px; color: #222; white-space: nowrap; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; pointer-events: none; box-shadow: 0 1px 3px rgba(0,0,0,0.4); } .leaflet-tooltip.leaflet-interactive { cursor: pointer; pointer-events: auto; } .leaflet-tooltip-top:before, .leaflet-tooltip-bottom:before, .leaflet-tooltip-left:before, .leaflet-tooltip-right:before { position: absolute; pointer-events: none; border: 6px solid transparent; background: transparent; content: ""; } .leaflet-tooltip-bottom { margin-top: 6px; } .leaflet-tooltip-top { margin-top: -6px; } .leaflet-tooltip-bottom:before, .leaflet-tooltip-top:before { left: 50%; margin-left: -6px; } .leaflet-tooltip-top:before { bottom: 0; margin-bottom: -12px; border-top-color: #fff; } .leaflet-tooltip-bottom:before { top: 0; margin-top: -12px; margin-left: -6px; border-bottom-color: #fff; } .leaflet-tooltip-left { margin-left: -6px; } .leaflet-tooltip-right { margin-left: 6px; } .leaflet-tooltip-left:before, .leaflet-tooltip-right:before { top: 50%; margin-top: -6px; } .leaflet-tooltip-left:before { right: 0; margin-right: -12px; border-left-color: #fff; } .leaflet-tooltip-right:before { left: 0; margin-left: -12px; border-right-color: #fff; } @media print { .leaflet-control { -webkit-print-color-adjust: exact; print-color-adjust: exact; } } 
+:root{
+  color-scheme:dark;
+  --bg:#070D0C; --panel:#0D1614; --ink:#E8F1EE; --ink2:#8CA39C; --line:#1E302C;
+  --land:#0A1312; --urban:#111E1B; --street:#1F322E; --road:#3D5850; --sierra:#060B0A;
+  --agua:#5AA2FF; --net:#FF79C6; --alert:#FFC247; --alert-bg:#33280A; --ok:#5FD39A;
+  --fill:#17305A;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+  font-family:Archivo,"Segoe UI",system-ui,sans-serif;font-size:15px;line-height:1.45;
+  display:grid;grid-template-rows:auto 1fr}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--agua);outline-offset:2px}
+h1,h2,h3,p{margin:0}
+.num{font-variant-numeric:tabular-nums}
+
+header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:10px 18px;
+  background:var(--panel);border-bottom:1px solid var(--line)}
+header h1{font-size:19px;font-weight:800;font-stretch:112%;letter-spacing:-.01em}
+header .sub{color:var(--ink2);font-size:13px}
+header .right{margin-left:auto;display:flex;gap:14px;align-items:center;font-size:13px;color:var(--ink2)}
+.sim-tag{border:1px dashed var(--road);padding:2px 8px;border-radius:3px}
+
+main{display:grid;grid-template-columns:minmax(300px,360px) minmax(0,1fr) minmax(280px,330px);min-height:0}
+section{min-height:0;display:flex;flex-direction:column}
+.side{background:var(--panel)}
+#call{border-right:1px solid var(--line)}
+#history{border-left:1px solid var(--line)}
+.head{display:flex;align-items:baseline;gap:10px;padding:14px 18px 10px}
+.head h2{font-size:15px;font-weight:700;font-stretch:112%}
+.head .meta{margin-left:auto;color:var(--ink2);font-size:13px}
+.scroll{overflow-y:auto;flex:1;min-height:0}
+
+/* llamada */
+.empty{padding:28px 18px;color:var(--ink2)}
+.empty p{max-width:30ch;margin-bottom:16px}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--panel);padding:9px 14px;border-radius:4px;font-weight:600}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.caller{padding:0 18px 12px;display:flex;align-items:center;gap:10px}
+.caller b{font-size:17px}
+.live{width:9px;height:9px;border-radius:50%;background:#D5342B;flex:none;animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+.caller .t{margin-left:auto;font-weight:700;font-size:17px}
+.ficha{margin:0 18px;border:1px solid var(--line);border-radius:4px}
+.ficha div{display:grid;grid-template-columns:86px 1fr auto;gap:8px;align-items:center;padding:8px 10px;border-bottom:1px solid var(--line);min-height:40px}
+.ficha div:last-child{border-bottom:0}
+.ficha dt{color:var(--ink2);font-size:13px}
+.ficha dd{margin:0;font-weight:600}
+.ficha dd.wait{font-weight:400;color:var(--ink2)}
+.ficha .new{animation:flash 1.6s}
+@keyframes flash{from{background:var(--fill)}to{background:transparent}}
+.mini{font-size:12px;padding:3px 8px;border-radius:3px;border:1px solid var(--line);background:transparent}
+.mini.done{border-color:transparent;color:var(--ok);cursor:default}
+.match{margin:12px 18px 0;padding:10px 12px;background:var(--alert-bg);border-left:4px solid var(--alert);border-radius:0 4px 4px 0;font-size:14px}
+.match b{display:block}
+.match.none{background:transparent;border-left-color:var(--line);color:var(--ink2)}
+.tr-title{padding:14px 18px 4px;font-size:13px;color:var(--ink2)}
+#callBody{display:flex;flex-direction:column;overflow:hidden}
+#callBody>*{flex:none}
+#callBody>.transcript{flex:1 1 0;min-height:110px;overflow-y:auto}
+.transcript{padding:0 18px 10px;display:flex;flex-direction:column;gap:8px}
+.transcript p{max-width:34ch;padding:7px 10px;border-radius:4px;font-size:14px}
+.transcript .socio{background:var(--bg)}
+.transcript .op{align-self:flex-end;border:1px solid var(--line)}
+.transcript small{display:block;color:var(--ink2);font-size:11.5px}
+.actions{padding:12px 18px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px}
+
+/* mapa */
+#mapsec{position:relative;background:var(--land)}
+#map{width:100%;height:100%;background:var(--land);font:inherit;z-index:0}
+.leaflet-container a{color:var(--ink2)}
+.osm-dark{filter:invert(1) hue-rotate(180deg) brightness(.85) contrast(.95) saturate(.55)}
+.leaflet-control-attribution{background:rgba(7,13,12,.75)!important;color:var(--ink2);font-size:11px}
+.leaflet-bar a,.leaflet-bar a:hover{background:var(--panel);color:var(--ink);border-bottom-color:var(--line)}
+.leaflet-bar{border:1px solid var(--line)!important}
+.halo{stroke:currentColor;fill:currentColor;cursor:pointer}
+.agua{color:var(--agua)} .internet{color:var(--net)}
+.halo-label{font-size:13px;font-weight:700;text-align:center;white-space:nowrap;text-shadow:0 0 4px #000,0 0 2px #000}
+.pin svg{display:block;filter:drop-shadow(0 0 2px #000)}
+.livepin{position:relative}
+.livepin span{position:absolute;left:28px;top:1px;white-space:nowrap;font-size:13px;font-weight:700;color:var(--ink);text-shadow:0 0 4px #000,0 0 2px #000}
+.bar{z-index:1000;position:absolute;top:12px;left:12px;right:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;pointer-events:none}
+.bar>*{pointer-events:auto}
+.chips{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.chips button{border:0;background:transparent;padding:6px 12px;font-size:13px;border-right:1px solid var(--line)}
+.chips button:last-child{border-right:0}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--panel)}
+.legend{margin-left:auto;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:6px 10px;font-size:12.5px;display:flex;gap:12px;flex-wrap:wrap}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend svg{width:12px;height:12px}
+.detail{z-index:1000;position:absolute;left:12px;bottom:26px;max-width:min(330px,calc(100% - 24px));background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:12px 14px;font-size:14px}
+.detail h3{font-size:15px;margin-bottom:2px}
+.detail p{color:var(--ink2)}
+.detail .x{position:absolute;top:6px;right:8px;border:0;background:none;font-size:18px;line-height:1;color:var(--ink2)}
+.note{flex-basis:100%;font-size:12.5px;color:var(--alert)}
+.note span{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:5px 9px;display:inline-block;max-width:52ch}
+svg text{font-family:inherit;fill:var(--ink2)}
+.pulse{animation:pulse 1.6s ease-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes pulse{from{transform:scale(.6);opacity:.9}to{transform:scale(2.4);opacity:0}}
+
+/* historial */
+.hist{list-style:none;margin:0;padding:0}
+.hist li{border-top:1px solid var(--line)}
+.hist button{display:grid;grid-template-columns:48px 1fr;gap:2px 10px;width:100%;text-align:left;border:0;background:transparent;padding:10px 18px}
+.hist button:hover,.hist button.sel{background:var(--bg)}
+.hist .h{color:var(--ink2);font-size:13px;grid-row:span 2;padding-top:1px}
+.hist .who{font-weight:600}
+.hist .what{font-size:13px;color:var(--ink2)}
+.tag{display:inline-block;font-size:12px;font-weight:600;margin-right:6px}
+.tag.agua{color:var(--agua)} .tag.internet{color:var(--net)}
+
+@media (max-width:980px){
+  body{height:auto;display:block}
+  main{display:block}
+  #call,#history{border:0;border-bottom:1px solid var(--line)}
+  #mapsec{height:78vw;max-height:560px;min-height:340px}
+  .scroll{overflow:visible}
+  #callBody>.transcript{flex:none;max-height:280px}
+}
+@media (prefers-reduced-motion:reduce){.live,.pulse,.ficha .new{animation:none}}
+
+.tabs{display:flex;gap:4px;margin-left:12px}
+.tabs a{color:var(--ink2);text-decoration:none;font-size:14px;font-weight:600;padding:6px 12px;border-radius:4px;border:1px solid transparent}
+.tabs a:hover{color:var(--ink);border-color:var(--line)}
+.tabs a[aria-current="page"]{color:var(--ink);background:var(--bg);border-color:var(--line)}
+.tabs a:focus-visible{outline:2px solid var(--agua);outline-offset:2px}
+
+main{grid-template-columns:1fr}
+@media (max-width:980px){
+  body{height:100%;display:grid}
+  main{display:grid}
+  #mapsec{height:auto;max-height:none;min-height:0}
+}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Mapa de reclamos</h1>
+    <div class="sub">Cooperativa de servicios, La Rioja Capital</div>
+  </div>
+  <nav class="tabs" aria-label="Secciones"><a href="dashboard-reclamos.html">Dashboard</a><a href="map.html" aria-current="page">Mapa</a><a href="dashboard-admin.html">Administración</a></nav>
+  <div class="right">
+    <span class="sim-tag">Datos simulados</span>
+    <span class="num" id="stats"></span>
+    <span class="num" id="clock"></span>
+  </div>
+</header>
+
+<main>
+  <section id="mapsec" aria-label="Mapa de reclamos">
+    <div id="map" aria-label="Mapa de La Rioja Capital con los reclamos"></div>
+    <div class="bar">
+      <div class="chips" role="group" aria-label="Filtrar por servicio">
+        <button data-f="todos" aria-pressed="true">Todos</button>
+        <button data-f="agua" aria-pressed="false">Agua</button>
+        <button data-f="internet" aria-pressed="false">Internet</button>
+      </div>
+      <div class="legend">
+        <span><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="5" fill="var(--agua)"/></svg>Agua</span>
+        <span><svg viewBox="0 0 12 12"><rect x="2" y="2" width="8" height="8" transform="rotate(45 6 6)" fill="var(--net)"/></svg>Internet</span>
+        <span><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="4.5" fill="none" stroke="var(--ink2)" stroke-width="1.5"/></svg>Resuelto</span>
+      </div>
+      <div class="note" id="note" hidden><span>Mapa esquemático: esta vista no puede cargar mapas externos. Descargá el archivo y abrilo en el navegador para ver el mapa real.</span></div>
+    </div>
+    <div class="detail" id="detail" hidden></div>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ---------- Proyección: lat/lng reales -> SVG. Al pasar a Leaflet se usan las mismas coordenadas ---------- */
+const BOX={n:-29.380,s:-29.460,w:-66.900,e:-66.810}, W=880, H=900;
+const proj=(lat,lng)=>[(lng-BOX.w)/(BOX.e-BOX.w)*W,(BOX.n-lat)/(BOX.n-BOX.s)*H];
+const metros=(a,b)=>{const R=6371000,r=Math.PI/180,dLa=(b.lat-a.lat)*r,dLo=(b.lng-a.lng)*r;
+  const h=Math.sin(dLa/2)**2+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(h));};
+const RADIO_MATCH=600; // metros
+
+const BARRIOS=[["Centro",-29.4131,-66.8558],["Vargas",-29.4020,-66.8640],["Shincal",-29.4180,-66.8720],
+["Cochangasta",-29.4330,-66.8830],["Faldeo del Velasco",-29.4480,-66.8760],["Antártida Argentina",-29.4400,-66.8560],
+["Facundo Quiroga",-29.4300,-66.8400],["Hospital",-29.4150,-66.8400],["San Vicente",-29.4000,-66.8450],
+["Santa Justina",-29.3900,-66.8550],["Yacampis",-29.3950,-66.8780],["Parque Industrial",-29.4520,-66.8280]];
+
+/* ---------- Datos simulados ---------- */
+const hace=min=>new Date(Date.now()-min*60000);
+const hhmm=d=>d.toLocaleTimeString("es-AR",{hour:"2-digit",minute:"2-digit",hour12:false});
+const incidents=[
+ {id:142,servicio:"agua",sintoma:"Baja presión",barrio:"Vargas",estado:"Técnico en camino"},
+ {id:141,servicio:"agua",sintoma:"Sin agua",barrio:"Hospital",estado:"Abierto"},
+ {id:140,servicio:"internet",sintoma:"Conexión lenta",barrio:"Facundo Quiroga",estado:"Abierto"},
+ {id:139,servicio:"internet",sintoma:"Sin conexión",barrio:"Centro",estado:"En revisión"},
+ {id:137,servicio:"agua",sintoma:"Pérdida en vereda",barrio:"Cochangasta",estado:"Abierto"},
+ {id:136,servicio:"agua",sintoma:"Agua turbia",barrio:"Faldeo del Velasco",estado:"Abierto"},
+ {id:133,servicio:"internet",sintoma:"Sin conexión",barrio:"Yacampis",estado:"Resuelto"}];
+let claims=[
+ [142,-29.4018,-66.8645,"Nélida Brizuela",18],[142,-29.4027,-66.8631,"Oscar Vera",14],[142,-29.4011,-66.8628,"Hilda Romero",11],[142,-29.4024,-66.8655,"Ramón Díaz",6],
+ [141,-29.4152,-66.8398,"Teresa Luna",25],
+ [140,-29.4302,-66.8405,"Jorge Mercado",41],
+ [139,-29.4128,-66.8549,"Librería Sarmiento",33],[139,-29.4137,-66.8540,"Clara Ocampo",29],[139,-29.4133,-66.8561,"Miguel Torres",21],
+ [137,-29.4331,-66.8828,"Aurora Nieto",52],
+ [136,-29.4478,-66.8764,"Pedro Agüero",64],[136,-29.4486,-66.8751,"Susana Paz",58],
+ [133,-29.3951,-66.8779,"Carlos Reinoso",140]
+].map(([inc,lat,lng,socio,m],i)=>({id:i+1,inc,lat,lng,socio,hora:hace(m)}));
+let calls=claims.map(c=>({claim:c.id,socio:c.socio,hora:c.hora,dur:95+((c.id*37)%140),
+  res:"Reclamo en #"+c.inc})).sort((a,b)=>b.hora-a.hora);
+const inc=id=>incidents.find(i=>i.id===id);
+
+/* Guiones: en producción esto llega de la transcripción en vivo + extracción a JSON */
+const SCRIPTS=[
+ {socio:"Marta Olivera",nro:"20418",lat:-29.4032,lng:-66.8622,barrio:"Vargas",lines:[
+  ["op","Cooperativa, buenas tardes. ¿En qué la puedo ayudar?"],
+  ["socio","Hola, m'hijo. Mirá, desde la mañana me sale un hilito de agua nomás, no puedo ni lavar.",{servicio:"Agua",sintoma:"Baja presión desde la mañana"}],
+  ["op","Entiendo, Marta. ¿Me dice la dirección, por favor?"],
+  ["socio","Estoy en el barrio Vargas, sobre Ramírez de Velasco al mil doscientos cuarenta.",{direccion:"Av. Ramírez de Velasco 1240, B° Vargas"}],
+  ["socio","Y tengo que tomar unos remedios, así que me preocupa.",{urgencia:"Alta: adulta mayor, necesita agua para medicación"}],
+  ["op","Quédese tranquila, ya lo estoy viendo acá."]]},
+ {socio:"Rubén Páez",nro:"31077",lat:-29.4405,lng:-66.8570,barrio:"Antártida Argentina",lines:[
+  ["op","Cooperativa, buenas tardes."],
+  ["socio","Buenas. Se me cortó el internet, el aparatito tiene una luz roja prendida.",{servicio:"Internet",sintoma:"Sin conexión, luz roja en el router"}],
+  ["op","¿Desde cuándo está así, don Rubén?"],
+  ["socio","Desde hace una hora más o menos. Yo vivo en el Antártida Argentina, calle Islas Malvinas 355.",{direccion:"Islas Malvinas 355, B° Antártida Argentina"}],
+  ["socio","No es urgente, pero mi nieta lo usa para la escuela.",{urgencia:"Media"}],
+  ["op","Perfecto, le tomo el reclamo."]]},
+ {socio:"Elvira Nieto",nro:"18830",lat:-29.4142,lng:-66.8532,barrio:"Centro",lines:[
+  ["op","Cooperativa, buenas tardes. ¿Con quién hablo?"],
+  ["socio","Con Elvira Nieto. Estoy sin internet en el negocio, no me anda el posnet.",{servicio:"Internet",sintoma:"Sin conexión, no funciona el posnet"}],
+  ["op","¿En qué dirección está el negocio?"],
+  ["socio","En Pelagio B. Luna 640, a dos cuadras de la plaza.",{direccion:"Pelagio B. Luna 640, Centro"}],
+  ["socio","Necesito que lo arreglen hoy porque no puedo cobrar.",{urgencia:"Alta: comercio sin poder cobrar"}],
+  ["op","Ya reviso si hay algo reportado en la zona."]]}];
+
+/* ---------- Estado ---------- */
+let cur=null, nextScript=0, filtro="todos", sel=null, timers=[], nextInc=143;
+const $=s=>document.querySelector(s);
+const reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+/* ---------- Mapa ---------- */
+function baseMap(){
+  const P=(lat,lng)=>proj(lat,lng).map(n=>n.toFixed(0)).join(",");
+  const plaza=proj(-29.4131,-66.8558);
+  return `
+  <defs>
+    <pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(4)">
+      <path d="M26 0H0V26" fill="none" stroke="var(--street)" stroke-width="1"/></pattern>
+    <pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(60)">
+      <path d="M0 0V9" stroke="var(--road)" stroke-width="1" opacity=".5"/></pattern>
+    <clipPath id="urb"><path id="urbPath" d="M190 150 Q330 40 560 70 Q770 110 790 330 Q820 560 720 760 Q600 880 400 850 Q230 830 170 640 Q110 400 190 150Z"/></clipPath>
+  </defs>
+  <rect width="${W}" height="${H}" fill="var(--land)"/>
+  <path d="M0 0H120 Q150 120 110 250 Q150 380 120 520 Q160 680 100 900H0Z" fill="var(--sierra)"/>
+  <path d="M0 0H120 Q150 120 110 250 Q150 380 120 520 Q160 680 100 900H0Z" fill="url(#hatch)"/>
+  <text x="58" y="470" font-size="14" transform="rotate(-90 58 470)" text-anchor="middle" letter-spacing="3">Sierra de Velasco</text>
+  <use href="#urbPath" fill="var(--urban)"/>
+  <rect width="${W}" height="${H}" fill="url(#grid)" clip-path="url(#urb)"/>
+  <polyline points="${P(-29.460,-66.818)} ${P(-29.435,-66.826)} ${P(-29.410,-66.829)} ${P(-29.380,-66.836)}" fill="none" stroke="var(--road)" stroke-width="5"/>
+  <text x="${proj(-29.425,-66.822)[0]}" y="${proj(-29.425,-66.822)[1]}" font-size="12">RN 38</text>
+  <polyline points="${P(-29.4131,-66.8558)} ${P(-29.400,-66.872)} ${P(-29.388,-66.890)} ${P(-29.380,-66.899)}" fill="none" stroke="var(--road)" stroke-width="3.5"/>
+  <text x="${proj(-29.386,-66.889)[0]+8}" y="${proj(-29.386,-66.889)[1]}" font-size="12">RN 75</text>
+  <rect x="${plaza[0]-9}" y="${plaza[1]-9}" width="18" height="18" fill="var(--ok)" opacity=".45" transform="rotate(4 ${plaza[0]} ${plaza[1]})"/>
+  ${BARRIOS.map(([n,la,ln])=>{const[x,y]=proj(la,ln);return `<text x="${x}" y="${y+30}" font-size="13" text-anchor="middle" font-weight="600" opacity=".8">${n}</text>`}).join("")}
+`;
+}
+const color=s=>s==="agua"?"var(--agua)":"var(--net)";
+function shape(s,x,y,r,attrs){
+  return s==="agua"?`<circle cx="${x}" cy="${y}" r="${r}" ${attrs}/>`
+    :`<rect x="${x-r*.9}" y="${y-r*.9}" width="${r*1.8}" height="${r*1.8}" transform="rotate(45 ${x} ${y})" ${attrs}/>`;
+}
+/* Mapa real (OpenStreetMap, estilo oscuro de CARTO). Si las teselas no cargan, cae al esquema dibujado. */
+const bounds=L.latLngBounds([BOX.s,BOX.w],[BOX.n,BOX.e]);
+const map=L.map("map",{zoomControl:false,zoomSnap:.25}).fitBounds(bounds);
+L.control.zoom({position:"bottomright"}).addTo(map);
+map.attributionControl.setPrefix(false);
+/* Pegá acá la clave gratuita de CARTO (carto.com/basemaps/apikey) para usar su estilo oscuro.
+   Si queda vacía, se usa el mapa estándar de OpenStreetMap oscurecido con un filtro. */
+const CARTO_KEY="";
+const tiles=(CARTO_KEY
+  ? L.tileLayer("https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png?key="+encodeURIComponent(CARTO_KEY),
+      {maxZoom:19,attribution:"© OpenStreetMap, © CARTO"})
+  : L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {maxZoom:19,className:"osm-dark",attribution:"© OpenStreetMap contributors"})).addTo(map);
+let tilesOk=false, esquema=false;
+tiles.on("tileload",()=>tilesOk=true);
+tiles.on("tileerror",()=>{if(!tilesOk) usarEsquema();});
+setTimeout(()=>{if(!tilesOk) usarEsquema();},6000);
+function usarEsquema(){
+  if(esquema) return; esquema=true; map.removeLayer(tiles);
+  const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.setAttribute("preserveAspectRatio","none"); svg.innerHTML=baseMap();
+  L.svgOverlay(svg,bounds).addTo(map).bringToBack();
+  map.setMaxBounds(bounds.pad(.15)); map.setMinZoom(map.getBoundsZoom(bounds)-.5);
+  $("#note").hidden=false;
+}
+const layer=L.layerGroup().addTo(map), liveLayer=L.layerGroup().addTo(map);
+const pin=(s,attrs)=>L.divIcon({className:"pin",iconSize:[22,22],iconAnchor:[11,11],
+  html:`<svg viewBox="0 0 22 22" width="22" height="22">${shape(s,11,11,7,attrs)}</svg>`});
+const centro=cs=>({lat:cs.reduce((a,c)=>a+c.lat,0)/cs.length,lng:cs.reduce((a,c)=>a+c.lng,0)/cs.length});
+function renderMap(){
+  layer.clearLayers(); liveLayer.clearLayers();
+  incidents.forEach(i=>{
+    const cs=claims.filter(c=>c.inc===i.id); if(!cs.length) return;
+    const dim=filtro!=="todos"&&filtro!==i.servicio, res=i.estado==="Resuelto", on=sel===i.id;
+    if(cs.length>1){
+      const cen=centro(cs), r=Math.max(...cs.map(c=>metros(cen,c)))+90;
+      L.circle(cen,{radius:r,className:"halo "+i.servicio,weight:on?2:0,opacity:dim?.2:1,fillOpacity:(on?.32:.16)*(dim?.25:1)})
+        .on("click",()=>showDetail(i.id)).addTo(layer);
+      L.marker([cen.lat+r/111320,cen.lng],{interactive:false,keyboard:false,opacity:dim?.2:1,
+        icon:L.divIcon({className:"halo-label "+i.servicio,html:`#${i.id} (${cs.length})`,iconSize:[90,18],iconAnchor:[45,21]})}).addTo(layer);
+    }
+    cs.forEach(c=>L.marker(c,{opacity:dim?.2:1,title:`Incidente #${i.id}: ${i.sintoma}, B° ${i.barrio}`,
+      icon:pin(i.servicio,res?`fill="var(--panel)" stroke="var(--ink2)" stroke-width="2"`:`fill="${color(i.servicio)}" stroke="#fff" stroke-width="1.5"`)})
+      .on("click",()=>showDetail(i.id)).addTo(layer));
+  });
+  if(cur&&cur.ficha.direccion){
+    const s=cur.ficha.servicio.toLowerCase();
+    L.marker(cur.s,{interactive:false,keyboard:false,zIndexOffset:1000,icon:L.divIcon({className:"pin livepin",iconSize:[26,26],iconAnchor:[13,13],
+      html:`<svg viewBox="0 0 26 26" width="26" height="26" style="overflow:visible"><circle class="pulse" cx="13" cy="13" r="11" fill="none" stroke="${color(s)}" stroke-width="3"/>${shape(s,13,13,9,`fill="${color(s)}" stroke="#fff" stroke-width="2.5"`)}</svg><span>Llamada en curso</span>`})}).addTo(liveLayer);
+  }
+}
+function showDetail(id){
+  sel=id; const i=inc(id), cs=claims.filter(c=>c.inc===id).sort((a,b)=>a.hora-b.hora), d=$("#detail");
+  d.hidden=false;
+  d.innerHTML=`<button class="x" aria-label="Cerrar detalle">×</button>
+   <h3>Incidente #${i.id}</h3>
+   <p><span class="tag ${i.servicio}">${i.servicio==="agua"?"Agua":"Internet"}</span>${i.sintoma}, B° ${i.barrio}</p>
+   <p class="num">${cs.length} ${cs.length===1?"reclamo":"reclamos"}, el primero a las ${hhmm(cs[0].hora)}</p>
+   <p><b style="color:var(--ink)">${i.estado}</b></p>`;
+  d.querySelector(".x").onclick=()=>{sel=null;d.hidden=true;renderMap();renderHistory();};
+  const cen=centro(cs); if(!map.getBounds().pad(-.1).contains(cen)) map.panTo(cen);
+  renderMap(); renderHistory();
+}
+document.querySelectorAll(".chips button").forEach(b=>b.onclick=()=>{
+  filtro=b.dataset.f; document.querySelectorAll(".chips button").forEach(x=>x.setAttribute("aria-pressed",x===b)); renderMap();});
+
+/* ---------- Resumen ---------- */
+function renderHistory(){
+  const abiertos=incidents.filter(i=>i.estado!=="Resuelto"&&claims.some(c=>c.inc===i.id));
+  const n=claims.filter(c=>abiertos.some(i=>i.id===c.inc)).length;
+  $("#stats").textContent=`${abiertos.length} incidentes abiertos, ${n} reclamos`;
+}
+function renderCall(){}
+function tick(){}
+
+/* ---------- Inicio ---------- */
+renderMap(); renderHistory(); renderCall();
+const clock=()=>$("#clock").textContent=hhmm(new Date());
+clock(); setInterval(()=>{clock();tick();},1000);
+</script>
+</body>
+</html>

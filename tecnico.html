@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Órdenes de campo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&display=swap">
+<style>
+.leaflet-pane, .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-tile-container, .leaflet-pane > svg, .leaflet-pane > canvas, .leaflet-zoom-box, .leaflet-image-layer, .leaflet-layer { position: absolute; left: 0; top: 0; } .leaflet-container { overflow: hidden; } .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow { -webkit-user-select: none; -moz-user-select: none; user-select: none; -webkit-user-drag: none; } .leaflet-tile::selection { background: transparent; } .leaflet-safari .leaflet-tile { image-rendering: -webkit-optimize-contrast; } .leaflet-safari .leaflet-tile-container { width: 1600px; height: 1600px; -webkit-transform-origin: 0 0; } .leaflet-marker-icon, .leaflet-marker-shadow { display: block; } .leaflet-container .leaflet-overlay-pane svg { max-width: none !important; max-height: none !important; } .leaflet-container .leaflet-marker-pane img, .leaflet-container .leaflet-shadow-pane img, .leaflet-container .leaflet-tile-pane img, .leaflet-container img.leaflet-image-layer, .leaflet-container .leaflet-tile { max-width: none !important; max-height: none !important; width: auto; padding: 0; } .leaflet-container img.leaflet-tile { mix-blend-mode: plus-lighter; } .leaflet-container.leaflet-touch-zoom { -ms-touch-action: pan-x pan-y; touch-action: pan-x pan-y; } .leaflet-container.leaflet-touch-drag { -ms-touch-action: pinch-zoom; touch-action: none; touch-action: pinch-zoom; } .leaflet-container.leaflet-touch-drag.leaflet-touch-zoom { -ms-touch-action: none; touch-action: none; } .leaflet-container { -webkit-tap-highlight-color: transparent; } .leaflet-container a { -webkit-tap-highlight-color: rgba(51, 181, 229, 0.4); } .leaflet-tile { filter: inherit; visibility: hidden; } .leaflet-tile-loaded { visibility: inherit; } .leaflet-zoom-box { width: 0; height: 0; -moz-box-sizing: border-box; box-sizing: border-box; z-index: 800; } .leaflet-overlay-pane svg { -moz-user-select: none; } .leaflet-pane { z-index: 400; } .leaflet-tile-pane { z-index: 200; } .leaflet-overlay-pane { z-index: 400; } .leaflet-shadow-pane { z-index: 500; } .leaflet-marker-pane { z-index: 600; } .leaflet-tooltip-pane { z-index: 650; } .leaflet-popup-pane { z-index: 700; } .leaflet-map-pane canvas { z-index: 100; } .leaflet-map-pane svg { z-index: 200; } .leaflet-vml-shape { width: 1px; height: 1px; } .lvml { display: inline-block; position: absolute; } .leaflet-control { position: relative; z-index: 800; pointer-events: visiblePainted; pointer-events: auto; } .leaflet-top, .leaflet-bottom { position: absolute; z-index: 1000; pointer-events: none; } .leaflet-top { top: 0; } .leaflet-right { right: 0; } .leaflet-bottom { bottom: 0; } .leaflet-left { left: 0; } .leaflet-control { float: left; clear: both; } .leaflet-right .leaflet-control { float: right; } .leaflet-top .leaflet-control { margin-top: 10px; } .leaflet-bottom .leaflet-control { margin-bottom: 10px; } .leaflet-left .leaflet-control { margin-left: 10px; } .leaflet-right .leaflet-control { margin-right: 10px; } .leaflet-fade-anim .leaflet-popup { opacity: 0; -webkit-transition: opacity 0.2s linear; -moz-transition: opacity 0.2s linear; transition: opacity 0.2s linear; } .leaflet-fade-anim .leaflet-map-pane .leaflet-popup { opacity: 1; } .leaflet-zoom-animated { -webkit-transform-origin: 0 0; -ms-transform-origin: 0 0; transform-origin: 0 0; } svg.leaflet-zoom-animated { will-change: transform; } .leaflet-zoom-anim .leaflet-zoom-animated { -webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1); -moz-transition: -moz-transform 0.25s cubic-bezier(0,0,0.25,1); transition: transform 0.25s cubic-bezier(0,0,0.25,1); } .leaflet-zoom-anim .leaflet-tile, .leaflet-pan-anim .leaflet-tile { -webkit-transition: none; -moz-transition: none; transition: none; } .leaflet-zoom-anim .leaflet-zoom-hide { visibility: hidden; } .leaflet-interactive { cursor: pointer; } .leaflet-grab { cursor: -webkit-grab; cursor: -moz-grab; cursor: grab; } .leaflet-crosshair, .leaflet-crosshair .leaflet-interactive { cursor: crosshair; } .leaflet-popup-pane, .leaflet-control { cursor: auto; } .leaflet-dragging .leaflet-grab, .leaflet-dragging .leaflet-grab .leaflet-interactive, .leaflet-dragging .leaflet-marker-draggable { cursor: move; cursor: -webkit-grabbing; cursor: -moz-grabbing; cursor: grabbing; } .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-image-layer, .leaflet-pane > svg path, .leaflet-tile-container { pointer-events: none; } .leaflet-marker-icon.leaflet-interactive, .leaflet-image-layer.leaflet-interactive, .leaflet-pane > svg path.leaflet-interactive, svg.leaflet-image-layer.leaflet-interactive path { pointer-events: visiblePainted; pointer-events: auto; } .leaflet-container { background: #ddd; outline-offset: 1px; } .leaflet-container a { color: #0078A8; } .leaflet-zoom-box { border: 2px dotted #38f; background: rgba(255,255,255,0.5); } .leaflet-container { font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; font-size: 12px; font-size: 0.75rem; line-height: 1.5; } .leaflet-bar { box-shadow: 0 1px 5px rgba(0,0,0,0.65); border-radius: 4px; } .leaflet-bar a { background-color: #fff; border-bottom: 1px solid #ccc; width: 26px; height: 26px; line-height: 26px; display: block; text-align: center; text-decoration: none; color: black; } .leaflet-bar a, .leaflet-control-layers-toggle { background-position: 50% 50%; background-repeat: no-repeat; display: block; } .leaflet-bar a:hover, .leaflet-bar a:focus { background-color: #f4f4f4; } .leaflet-bar a:first-child { border-top-left-radius: 4px; border-top-right-radius: 4px; } .leaflet-bar a:last-child { border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-bottom: none; } .leaflet-bar a.leaflet-disabled { cursor: default; background-color: #f4f4f4; color: #bbb; } .leaflet-touch .leaflet-bar a { width: 30px; height: 30px; line-height: 30px; } .leaflet-touch .leaflet-bar a:first-child { border-top-left-radius: 2px; border-top-right-radius: 2px; } .leaflet-touch .leaflet-bar a:last-child { border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; } .leaflet-control-zoom-in, .leaflet-control-zoom-out { font: bold 18px 'Lucida Console', Monaco, monospace; text-indent: 1px; } .leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out { font-size: 22px; } .leaflet-control-layers { box-shadow: 0 1px 5px rgba(0,0,0,0.4); background: #fff; border-radius: 5px; } .leaflet-control-layers-toggle { width: 36px; height: 36px; } .leaflet-retina .leaflet-control-layers-toggle { background-size: 26px 26px; } .leaflet-touch .leaflet-control-layers-toggle { width: 44px; height: 44px; } .leaflet-control-layers .leaflet-control-layers-list, .leaflet-control-layers-expanded .leaflet-control-layers-toggle { display: none; } .leaflet-control-layers-expanded .leaflet-control-layers-list { display: block; position: relative; } .leaflet-control-layers-expanded { padding: 6px 10px 6px 6px; color: #333; background: #fff; } .leaflet-control-layers-scrollbar { overflow-y: scroll; overflow-x: hidden; padding-right: 5px; } .leaflet-control-layers-selector { margin-top: 2px; position: relative; top: 1px; } .leaflet-control-layers label { display: block; font-size: 13px; font-size: 1.08333em; } .leaflet-control-layers-separator { height: 0; border-top: 1px solid #ddd; margin: 5px -10px 5px -6px; } .leaflet-default-icon-path { } .leaflet-container .leaflet-control-attribution { background: #fff; background: rgba(255, 255, 255, 0.8); margin: 0; } .leaflet-control-attribution, .leaflet-control-scale-line { padding: 0 5px; color: #333; line-height: 1.4; } .leaflet-control-attribution a { text-decoration: none; } .leaflet-control-attribution a:hover, .leaflet-control-attribution a:focus { text-decoration: underline; } .leaflet-attribution-flag { display: inline !important; vertical-align: baseline !important; width: 1em; height: 0.6669em; } .leaflet-left .leaflet-control-scale { margin-left: 5px; } .leaflet-bottom .leaflet-control-scale { margin-bottom: 5px; } .leaflet-control-scale-line { border: 2px solid #777; border-top: none; line-height: 1.1; padding: 2px 5px 1px; white-space: nowrap; -moz-box-sizing: border-box; box-sizing: border-box; background: rgba(255, 255, 255, 0.8); text-shadow: 1px 1px #fff; } .leaflet-control-scale-line:not(:first-child) { border-top: 2px solid #777; border-bottom: none; margin-top: -2px; } .leaflet-control-scale-line:not(:first-child):not(:last-child) { border-bottom: 2px solid #777; } .leaflet-touch .leaflet-control-attribution, .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar { box-shadow: none; } .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar { border: 2px solid rgba(0,0,0,0.2); background-clip: padding-box; } .leaflet-popup { position: absolute; text-align: center; margin-bottom: 20px; } .leaflet-popup-content-wrapper { padding: 1px; text-align: left; border-radius: 12px; } .leaflet-popup-content { margin: 13px 24px 13px 20px; line-height: 1.3; font-size: 13px; font-size: 1.08333em; min-height: 1px; } .leaflet-popup-content p { margin: 17px 0; margin: 1.3em 0; } .leaflet-popup-tip-container { width: 40px; height: 20px; position: absolute; left: 50%; margin-top: -1px; margin-left: -20px; overflow: hidden; pointer-events: none; } .leaflet-popup-tip { width: 17px; height: 17px; padding: 1px; margin: -10px auto 0; pointer-events: auto; -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); } .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: white; color: #333; box-shadow: 0 3px 14px rgba(0,0,0,0.4); } .leaflet-container a.leaflet-popup-close-button { position: absolute; top: 0; right: 0; border: none; text-align: center; width: 24px; height: 24px; font: 16px/24px Tahoma, Verdana, sans-serif; color: #757575; text-decoration: none; background: transparent; } .leaflet-container a.leaflet-popup-close-button:hover, .leaflet-container a.leaflet-popup-close-button:focus { color: #585858; } .leaflet-popup-scrolled { overflow: auto; } .leaflet-oldie .leaflet-popup-content-wrapper { -ms-zoom: 1; } .leaflet-oldie .leaflet-popup-tip { width: 24px; margin: 0 auto; -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)"; filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678); } .leaflet-oldie .leaflet-control-zoom, .leaflet-oldie .leaflet-control-layers, .leaflet-oldie .leaflet-popup-content-wrapper, .leaflet-oldie .leaflet-popup-tip { border: 1px solid #999; } .leaflet-div-icon { background: #fff; border: 1px solid #666; } .leaflet-tooltip { position: absolute; padding: 6px; background-color: #fff; border: 1px solid #fff; border-radius: 3px; color: #222; white-space: nowrap; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; pointer-events: none; box-shadow: 0 1px 3px rgba(0,0,0,0.4); } .leaflet-tooltip.leaflet-interactive { cursor: pointer; pointer-events: auto; } .leaflet-tooltip-top:before, .leaflet-tooltip-bottom:before, .leaflet-tooltip-left:before, .leaflet-tooltip-right:before { position: absolute; pointer-events: none; border: 6px solid transparent; background: transparent; content: ""; } .leaflet-tooltip-bottom { margin-top: 6px; } .leaflet-tooltip-top { margin-top: -6px; } .leaflet-tooltip-bottom:before, .leaflet-tooltip-top:before { left: 50%; margin-left: -6px; } .leaflet-tooltip-top:before { bottom: 0; margin-bottom: -12px; border-top-color: #fff; } .leaflet-tooltip-bottom:before { top: 0; margin-top: -12px; margin-left: -6px; border-bottom-color: #fff; } .leaflet-tooltip-left { margin-left: -6px; } .leaflet-tooltip-right { margin-left: 6px; } .leaflet-tooltip-left:before, .leaflet-tooltip-right:before { top: 50%; margin-top: -6px; } .leaflet-tooltip-left:before { right: 0; margin-right: -12px; border-left-color: #fff; } .leaflet-tooltip-right:before { left: 0; margin-left: -12px; border-right-color: #fff; } @media print { .leaflet-control { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+/* Layout: una sola columna de teléfono (máx. 440 px). Barra superior fija, acción principal fija abajo,
+   secciones apiladas en el orden en que el técnico las necesita: llegar, ver la zona, entender, trabajar, cerrar. */
+:root{
+  --bg:#F2F5F4; --panel:#FFFFFF; --sunk:#E6ECEA; --ink:#0D1A17; --ink2:#52675F; --line:#D3DEDA;
+  --agua:#1B6CD1; --net:#BF2F86; --alert:#8A5D00; --alert-bg:#FFF2CC; --alert-line:#D89A00;
+  --ok:#1C8550; --ok-bg:#DDF3E7; --crit:#C42B22; --crit-bg:#FDE3E1;
+  --poi:#22312D; --poi-ink:#FFFFFF; --land:#E4EAE8; --block:#F8FAF9; --street:#C9D5D1; --avenue:#A9BBB5;
+  --scrim:rgba(13,26,23,.45); --tile-filter:none;
+  --font:Archivo,"Segoe UI",system-ui,-apple-system,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#070D0C; --panel:#0D1614; --sunk:#111E1B; --ink:#E8F1EE; --ink2:#8CA39C; --line:#1E302C;
+  --agua:#5AA2FF; --net:#FF79C6; --alert:#FFC247; --alert-bg:#33280A; --alert-line:#FFC247;
+  --ok:#5FD39A; --ok-bg:#0F2A1E; --crit:#FF6B5E; --crit-bg:#3A1411;
+  --poi:#E8F1EE; --poi-ink:#070D0C; --land:#0A1312; --block:#111E1B; --street:#1F322E; --avenue:#3D5850;
+  --scrim:rgba(0,0,0,.6); --tile-filter:invert(1) hue-rotate(180deg) brightness(.85) contrast(.95) saturate(.55);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#070D0C; --panel:#0D1614; --sunk:#111E1B; --ink:#E8F1EE; --ink2:#8CA39C; --line:#1E302C;
+  --agua:#5AA2FF; --net:#FF79C6; --alert:#FFC247; --alert-bg:#33280A; --alert-line:#FFC247;
+  --ok:#5FD39A; --ok-bg:#0F2A1E; --crit:#FF6B5E; --crit-bg:#3A1411;
+  --poi:#E8F1EE; --poi-ink:#070D0C; --land:#0A1312; --block:#111E1B; --street:#1F322E; --avenue:#3D5850;
+  --scrim:rgba(0,0,0,.6); --tile-filter:invert(1) hue-rotate(180deg) brightness(.85) contrast(.95) saturate(.55);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--sunk);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.45;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--panel)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--agua);outline-offset:2px}
+h1,h2,h3,p{margin:0}
+a{color:inherit}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--ink2)}
+.app{max-width:440px;margin:0 auto;min-height:100vh;background:var(--bg)}
+@media (min-width:480px){.app{border-inline:1px solid var(--line)}}
+
+/* barra superior */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--panel);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:10px;padding:8px 16px;min-height:56px}
+.back{border:0;background:none;padding:10px 8px;margin-left:-8px;display:flex;align-items:center;gap:2px;color:var(--ink2);font-size:15px}
+.back svg{width:18px;height:18px}
+.top h1{font-size:17px;font-weight:800;font-stretch:112%;letter-spacing:-.01em}
+.top .r{margin-left:auto;display:flex;align-items:center;gap:10px}
+.pill{font-size:12.5px;font-weight:700;padding:3px 10px;border-radius:999px;border:1.5px solid currentColor;white-space:nowrap}
+.pill.asignada{color:var(--ink2)}
+.pill.camino{color:var(--panel);background:var(--ink);border-color:var(--ink)}
+.pill.sitio{color:var(--alert)}
+.pill.resuelta{color:var(--ok)}
+
+/* lista */
+.lhead{background:var(--panel);padding:16px;border-bottom:1px solid var(--line)}
+.tech{display:flex;align-items:center;gap:12px}
+.avatar{width:44px;height:44px;border-radius:50%;background:var(--sunk);display:grid;place-items:center;font-weight:800;font-stretch:112%;flex:none}
+.tech b{display:block;font-size:17px}
+.tech .sub{font-size:13px;color:var(--ink2)}
+.tech .r{margin-left:auto;text-align:right;font-size:13px}
+.onduty{display:inline-flex;align-items:center;gap:6px;color:var(--ok);font-weight:600}
+.onduty::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.sim{display:inline-block;margin-top:2px;border:1px dashed var(--line);border-radius:3px;padding:1px 6px;color:var(--ink2);font-size:11.5px}
+.sumline{margin-top:14px;font-size:14px;color:var(--ink2)}
+.sumline b{color:var(--ink);font-size:16px}
+.cards{list-style:none;margin:0;padding:14px 16px 28px;display:flex;flex-direction:column;gap:10px}
+.lgroup{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink2);font-weight:700;padding-top:8px}
+.card{width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 14px 14px 20px;
+  position:relative;display:flex;flex-direction:column;gap:3px;overflow:hidden}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--line)}
+.card.alta::before{background:var(--crit)} .card.media::before{background:var(--alert-line)}
+.card.resuelta{opacity:.7} .card.resuelta::before{background:var(--ok)}
+.card .l1{display:flex;align-items:center;gap:8px;font-size:13px}
+.card .l1 .pill{margin-left:auto}
+.card .s{font-size:18px;font-weight:800;font-stretch:108%;line-height:1.2}
+.card .a{font-size:14.5px}
+.card .m{font-size:13px;color:var(--ink2)}
+
+/* detalle */
+.svc{font-weight:700} .svc.agua{color:var(--agua)} .svc.internet{color:var(--net)}
+.prio{font-weight:700;font-size:12px;padding:2px 8px;border-radius:3px;white-space:nowrap}
+.prio.alta{background:var(--crit-bg);color:var(--crit)} .prio.media{background:var(--alert-bg);color:var(--alert)} .prio.baja{background:var(--sunk);color:var(--ink2)}
+.banner{background:var(--alert-bg);padding:10px 16px;font-size:14px;border-bottom:1px solid var(--line)}
+.banner b{color:var(--alert)}
+.hero{background:var(--panel);padding:16px 16px 18px;border-bottom:1px solid var(--line)}
+.hero .tags{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px}
+.hero .sint{font-size:28px;font-weight:800;font-stretch:110%;line-height:1.08;letter-spacing:-.01em;margin:10px 0 2px;text-wrap:balance}
+.hero .why{font-size:14px;color:var(--crit);font-weight:600}
+.addrbox{margin-top:14px;display:flex;flex-direction:column;gap:2px}
+.addrbox .lab{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink2);font-weight:700}
+.addrbox .addr{font-size:19px;font-weight:700;line-height:1.25;user-select:all}
+.addrbox .ref{color:var(--ink2);font-size:14px}
+.eta{margin-top:8px;font-size:14px}
+.eta b{font-weight:700}
+.row-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 14px;border-radius:6px;
+  border:1.5px solid var(--ink);background:var(--ink);color:var(--panel);font-weight:700;text-decoration:none;font-size:15px;text-align:center;line-height:1.2}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn svg{width:18px;height:18px;flex:none}
+
+.sec{padding:20px 16px;border-bottom:1px solid var(--line)}
+.sec>h2{font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink2);font-weight:700;margin-bottom:12px;display:flex;align-items:baseline;gap:8px}
+.sec>h2 .cnt{margin-left:auto;text-transform:none;letter-spacing:0;font-weight:500;font-size:13px}
+.sec>h2.fh{margin:-10px 0}
+.fold{display:flex;align-items:center;gap:8px;width:100%;min-height:48px;padding:0;border:0;background:none;
+  font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;text-align:left}
+.fold .cnt{margin-left:auto}
+.fold svg{width:20px;height:20px;flex:none;color:var(--ink);transition:transform .2s}
+.fold[aria-expanded="true"] svg{transform:rotate(180deg)}
+#reclBody{margin-top:16px}
+.sec h3{font-size:14px;font-weight:700;margin:18px 0 4px}
+
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;list-style:none;margin:0;padding:0}
+.steps li{display:flex;flex-direction:column;gap:2px;font-size:12px;color:var(--ink2)}
+.steps li::before{content:"";height:5px;border-radius:3px;background:var(--line);margin-bottom:6px}
+.steps li.done::before{background:var(--ink)}
+.steps li.now::before{background:var(--alert-line)}
+.steps li b{color:var(--ink);font-size:12.5px;line-height:1.2}
+.steps li:not(.done):not(.now) b{color:var(--ink2);font-weight:500}
+
+/* mapa */
+.zwrap{position:relative;isolation:isolate;border:1px solid var(--line);border-radius:6px;overflow:hidden;height:300px;max-width:100%;background:var(--land)}
+#zmap{position:absolute;inset:0;z-index:0;background:var(--land);font:inherit}
+.zwrap.full{position:fixed;inset:0;z-index:60;border-radius:0;height:auto;border:0}
+.zbtn{position:absolute;z-index:500;top:8px;right:8px;min-height:36px;padding:6px 12px;border-radius:6px;border:1px solid var(--line);background:var(--panel);font-weight:700;font-size:13px}
+.zwrap.full .zbtn{top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px));min-height:44px;padding:8px 16px}
+.znote{position:absolute;left:8px;bottom:8px;z-index:500;max-width:60%;font-size:11.5px;line-height:1.3;background:var(--panel);border:1px solid var(--line);padding:4px 8px;border-radius:4px;color:var(--ink2)}
+.zwrap.full .znote{bottom:calc(12px + env(safe-area-inset-bottom,0px));left:calc(12px + env(safe-area-inset-left,0px))}
+.nomap{padding:20px;color:var(--ink2)}
+.zcard{position:absolute;z-index:600;left:8px;right:8px;bottom:8px;background:var(--panel);border:1px solid var(--line);border-radius:8px;
+  padding:12px 40px 12px 12px;display:flex;flex-direction:column;gap:6px;font-size:14px;max-height:calc(100% - 60px);overflow:auto}
+.zwrap.full .zcard{left:calc(12px + env(safe-area-inset-left,0px));right:calc(64px + env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));max-width:420px}
+.zcard .zc-h{display:flex;gap:10px;align-items:flex-start}
+.zcard .zc-h>svg,.zcard .zc-h>.poi-ic{flex:none;margin-top:1px}
+.zcard .zc-h b{display:block;font-size:15px;line-height:1.25}
+.zcard .zc-h span.num{font-size:12.5px;color:var(--ink2)}
+.zcard p{color:var(--ink2)}
+.zcard p.warn{color:var(--alert);font-weight:600}
+.zcard .x{position:absolute;top:4px;right:4px;width:36px;height:36px;border:0;background:none;font-size:22px;line-height:1;color:var(--ink2)}
+.hint{margin-top:8px;font-size:13px;color:var(--ink2)}
+.tiles{filter:var(--tile-filter)}
+.leaflet-container a{color:var(--ink2)}
+.leaflet-control-attribution{background:var(--panel)!important;color:var(--ink2);font-size:10.5px;opacity:.85}
+.leaflet-bar{border:1px solid var(--line)!important;box-shadow:none!important}
+.leaflet-bar a,.leaflet-bar a:hover{background:var(--panel);color:var(--ink);border-bottom-color:var(--line)}
+.leaflet-tooltip{background:var(--panel);color:var(--ink);border:1px solid var(--line);box-shadow:none;font:600 12.5px/1.3 var(--font);padding:4px 8px}
+.leaflet-tooltip-top:before{border-top-color:var(--line)}
+.pin svg{display:block;overflow:visible}
+.zone{fill:currentColor;stroke:currentColor}
+.agua{color:var(--agua)} .internet{color:var(--net)} .demand{color:var(--alert-line)}
+.poi-ic{display:block;width:22px;height:22px;border-radius:5px;background:var(--poi);color:var(--poi-ink);font:800 12px/22px var(--font);text-align:center;box-shadow:0 0 0 2px var(--panel)}
+.poi-ic.demand{background:var(--alert-line);color:#1A1405}
+.pulse{animation:pulse 1.8s ease-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes pulse{from{transform:scale(.7);opacity:.9}to{transform:scale(2.2);opacity:0}}
+svg text{font-family:var(--font)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--ink2);margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend svg{width:14px;height:14px;flex:none;overflow:visible}
+.legend .poi-ic{width:14px;height:14px;font-size:9px;line-height:14px;border-radius:3px;box-shadow:none}
+
+.near{list-style:none;margin:0;padding:0}
+.near li{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:2px 10px;padding:10px 6px;margin:0 -6px;border-top:1px solid var(--line);align-items:start;border-radius:4px}
+.near li:first-child{border-top:0}
+.near .ico{padding-top:1px}
+.near .ico svg{width:20px;height:20px;overflow:visible;display:block;margin:1px}
+.near .t{font-weight:700;font-size:14.5px}
+.near .d{font-size:13px;color:var(--ink2);white-space:nowrap;padding-top:2px}
+.near p{grid-column:2/4;font-size:13.5px;color:var(--ink2)}
+.near p.warn{color:var(--alert);font-weight:600}
+.near .empty{display:block;color:var(--ink2);font-size:14px;padding:6px 0;border:0}
+.hl{animation:hl 1.6s ease-out}
+@keyframes hl{from{background:var(--alert-bg)}to{background:transparent}}
+
+/* problema */
+.kv{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 14px;font-size:14.5px}
+.kv dt{color:var(--ink2);font-size:13.5px;padding-top:1px}
+.kv dd{margin:0;font-weight:600}
+.ia{margin-top:16px;background:var(--sunk);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;font-size:14.5px}
+.ia .h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;font-weight:700;font-size:14px}
+.ia .h small{font-weight:500;color:var(--ink2);font-size:12.5px}
+.ia .cause{padding-top:8px;border-top:1px solid var(--line)}
+.ia .cause b{display:block;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink2)}
+
+/* reclamos */
+.recl{list-style:none;margin:0;padding:0}
+.recl li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;padding:12px 6px;margin:0 -6px;border-top:1px solid var(--line);border-radius:4px}
+.recl li:first-child{border-top:0}
+.recl .who{font-weight:700;font-size:15px}
+.recl .h{color:var(--ink2);font-size:13px}
+.recl .a,.recl .n,.recl .flag,.recl .tel{grid-column:1/-1}
+.recl .a{font-size:14px}
+.recl .n{font-size:13.5px;color:var(--ink2)}
+.recl .flag{font-size:13.5px;font-weight:700;color:var(--crit)}
+.recl .tel{font-size:13.5px;color:var(--ink2);display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:4px}
+.recl .tel a{color:var(--ink);font-weight:600;text-decoration:none;border-bottom:1px solid var(--line)}
+
+.msg{background:var(--sunk);border-radius:6px;padding:12px 14px;font-size:14.5px}
+.msg small{display:block;color:var(--ink2);font-size:12.5px;margin-bottom:4px}
+
+.chk{display:flex;flex-direction:column}
+.chk label{display:flex;gap:12px;align-items:flex-start;padding:11px 0;min-height:46px;border-top:1px solid var(--line);font-size:14.5px;cursor:pointer}
+.chk label:first-child{border-top:0}
+.chk input{width:22px;height:22px;accent-color:var(--ok);flex:none;margin:0}
+.chk input:checked+span{color:var(--ink2)}
+.chk small{display:block;color:var(--ink2);font-size:12.5px}
+
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.acts .btn.wide{grid-column:1/-1}
+
+.log{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.log li{display:grid;grid-template-columns:46px minmax(0,1fr);gap:10px;padding:6px 0;font-size:14px}
+.log .h{color:var(--ink2)}
+.log li.me span:last-child{font-weight:600}
+
+.actbar{position:sticky;bottom:0;z-index:15;background:var(--panel);border-top:1px solid var(--line);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:8px}
+.actbar .btn{min-height:52px}
+.actbar .btn.main{flex:1;font-size:16px}
+
+/* hoja inferior */
+.sheet-wrap{position:fixed;inset:0;z-index:80;display:flex;align-items:flex-end;justify-content:center}
+.scrim{position:absolute;inset:0;background:var(--scrim)}
+.sheet{position:relative;width:100%;max-width:440px;max-height:90%;overflow:auto;background:var(--panel);border-radius:14px 14px 0 0;
+  padding:8px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+.grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:4px auto 14px}
+.sheet h2{font-size:20px;font-weight:800;font-stretch:110%;margin-bottom:4px;text-wrap:balance}
+.sheet .lead{color:var(--ink2);font-size:14px}
+.field{display:flex;flex-direction:column;gap:6px;margin-top:16px;border:0;padding:0;min-width:0}
+.field>label,.field>legend{font-size:13px;font-weight:700;color:var(--ink2);padding:0;margin-bottom:6px}
+.field>label{margin-bottom:0}
+select,textarea,input[type=text]{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:11px 12px;min-height:48px;width:100%}
+textarea{min-height:92px;resize:vertical}
+input[type=file]{font-size:14px;max-width:100%}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{position:relative;display:block}
+.opt input{position:absolute;opacity:0;inset:0}
+.opt span{display:flex;align-items:center;justify-content:center;text-align:center;min-height:50px;padding:8px;border:1.5px solid var(--line);border-radius:6px;font-weight:600;font-size:14px}
+.opt input:checked+span{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.opt input:focus-visible+span{outline:2px solid var(--agua);outline-offset:2px}
+.inl{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;padding:6px 0;cursor:pointer}
+.inl input{width:22px;height:22px;accent-color:var(--ok);flex:none;margin:0}
+.err{color:var(--crit);font-size:14px;font-weight:600;margin-top:12px}
+.photos{display:flex;gap:8px;flex-wrap:wrap}
+.photos img{width:72px;height:72px;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
+.foot{display:flex;gap:8px;margin-top:20px}
+.foot .btn{flex:1}
+
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:90;
+  width:max-content;max-width:min(400px,calc(100% - 32px));background:var(--ink);color:var(--panel);padding:12px 16px;border-radius:8px;font-size:14.5px;font-weight:600}
+
+@media (prefers-reduced-motion:reduce){.pulse,.hl{animation:none}.fold svg{transition:none}}
+</style>
+</head>
+<body>
+
+
+<div class="app">
+  <section id="scrList" aria-label="Mis órdenes" hidden>
+    <div class="lhead">
+      <div class="tech">
+        <div class="avatar" aria-hidden="true">DH</div>
+        <div><b>Darío Herrera</b><span class="sub">Cuadrilla Agua 2 · Móvil 07</span></div>
+        <div class="r"><span class="onduty">En servicio</span><br><span class="num muted" id="clock"></span></div>
+      </div>
+      <p class="sumline num" id="sum"></p>
+      <span class="sim">Datos simulados</span>
+    </div>
+    <ul class="cards" id="cards"></ul>
+  </section>
+
+  <section id="scrDet" aria-label="Orden de trabajo" hidden>
+    <header class="top">
+      <button class="back" id="back" aria-label="Volver a mis órdenes"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Órdenes</button>
+      <h1 class="num" id="detTitle"></h1>
+      <div class="r"><span class="pill" id="topPill"></span></div>
+    </header>
+    <div id="detBody"></div>
+  </section>
+</div>
+
+<div class="sheet-wrap" id="sheet" hidden>
+  <div class="scrim" id="scrim"></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"><div class="grab"></div><div id="sheetBody"></div></div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ================= utilidades ================= */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const hace=m=>new Date(Date.now()-m*60000);
+const hhmm=d=>d.toLocaleTimeString("es-AR",{hour:"2-digit",minute:"2-digit",hour12:false});
+const desde=d=>{const m=Math.max(0,Math.round((Date.now()-d)/60000));return m<60?`${m} min`:`${Math.floor(m/60)} h ${String(m%60).padStart(2,"0")} min`;};
+const metros=(a,b)=>{const R=6371000,r=Math.PI/180,dLa=(b.lat-a.lat)*r,dLo=(b.lng-a.lng)*r;
+  const h=Math.sin(dLa/2)**2+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(h));};
+const fmtD=m=>m<1000?`${Math.max(10,Math.round(m/10)*10)} m`:`${(m/1000).toFixed(1).replace(".",",")} km`;
+const centro=cs=>({lat:cs.reduce((a,c)=>a+c.lat,0)/cs.length,lng:cs.reduce((a,c)=>a+c.lng,0)/cs.length});
+const SVC={agua:"Agua",internet:"Internet"};
+const ST=["asignada","camino","sitio","resuelta"];
+const STN={asignada:"Asignada",camino:"En camino",sitio:"En el lugar",resuelta:"Resuelta"};
+const POI={arreglo:["A","Arreglo previo"],valvula:["V","Válvula de corte"],hidrante:["H","Hidrante"],surtidor:["E","Estación de servicio"],
+  demanda:["D","Zona de alta demanda"],tanque:["T","Tanque / cisterna"],nodo:["N","Nodo de red"]};
+
+/* ================= datos simulados (mismos incidentes que el dashboard de la mesa) ================= */
+const CHECK={
+  agua:[["Señalizá la zona con conos y cinta","Sobre todo si trabajás en la calzada"],
+        ["Revisá el plano de cañerías antes de excavar","Gas, cloacas y tanques de combustible"],
+        ["Avisá a la mesa antes de cerrar una válvula","Así informan a los socios afectados"],
+        ["Guantes, botas y chaleco reflectivo",""]],
+  internet:[["Señalizá la escalera o la zona de trabajo",""],["Verificá que no haya tensión en el poste",""],["Arnés y casco para trabajo en altura",""]]};
+const CAUSAS={agua:["Pérdida en la red","Rotura de conexión domiciliaria","Válvula cerrada o defectuosa","Obstrucción o sedimento","Problema dentro de la casa del socio","No se encontró falla","Otra"],
+  internet:["Corte de fibra","Equipo del socio","Nodo sin energía","Configuración","No se encontró falla","Otra"]};
+
+const ORDERS=[
+ {id:142,servicio:"agua",sintoma:"Baja presión",prioridad:"alta",prioMotivo:"Una socia necesita agua para tomar su medicación",
+  barrio:"Vargas",dir:"Av. Ramírez de Velasco 1240",ref:"Entre Los Talas y Los Algarrobos",avenida:"Av. Ramírez de Velasco",
+  lat:-29.4032,lng:-66.8622,km:1.6,min:6,estado:"camino",asig:9,salio:4,
+  detalle:"Sale un hilo de agua desde la mañana",
+  ia:{resumen:"5 socios sobre tres cuadras de Ramírez de Velasco reportan baja presión desde las 7. Uno vio agua corriendo por la cuneta en Ramírez de Velasco y Los Talas, a unos 30 m del caño que se reemplazó el 14/08.",
+      causa:"Pérdida en la red secundaria, probablemente en la unión del arreglo del 14/08. No parece un problema domiciliario."},
+  nota:{de:"Operador 01",min:3,txt:"Priorizá a Marta Olivera (Ramírez de Velasco 1240): necesita agua para tomar su medicación. Si tenés que cerrar la V-12, avisá antes desde la app para que informemos a los socios."},
+  reclamos:[
+   {socio:"Nélida Brizuela",nro:"19902",dir:"Av. Ramírez de Velasco 1310",tel:"380 15 467-1290",lat:-29.4018,lng:-66.8645,min:18,nota:"Sale un hilo de agua desde las 7"},
+   {socio:"Oscar Vera",nro:"22371",dir:"Los Talas 132",tel:"380 15 439-8812",lat:-29.4027,lng:-66.8631,min:14,nota:"El tanque de la casa está vacío"},
+   {socio:"Hilda Romero",nro:"17654",dir:"Los Algarrobos 270",tel:"380 15 402-5531",lat:-29.4011,lng:-66.8628,min:11,nota:""},
+   {socio:"Ramón Díaz",nro:"25510",dir:"Av. Ramírez de Velasco 1395",tel:"380 15 455-0147",lat:-29.4024,lng:-66.8655,min:6,nota:"Vio agua corriendo por la cuneta en la esquina"},
+   {socio:"Marta Olivera",nro:"20418",dir:"Av. Ramírez de Velasco 1240",tel:"380 15 441-2087",lat:-29.4032,lng:-66.8622,min:3,prio:"Adulta mayor, necesita agua para su medicación"}],
+  poi:[
+   {tipo:"arreglo",nombre:"Arreglo previo: reemplazo de caño (14/08)",lat:-29.4022,lng:-66.8652,det:"6 m de caño PVC Ø110 y abrazadera nueva. Cuadrilla 1.",warn:"Revisá primero la unión nueva: está a 30 m de donde vieron agua"},
+   {tipo:"hidrante",nombre:"Hidrante H-08",lat:-29.4029,lng:-66.8611,det:"Operativo en el último control (09/2026). Sirve para medir presión."},
+   {tipo:"valvula",nombre:"Válvula de corte V-12",lat:-29.4041,lng:-66.8662,det:"Cierra el ramal Vargas norte.",con:140},
+   {tipo:"surtidor",nombre:"Estación de servicio (surtidor)",lat:-29.4046,lng:-66.8604,det:"Sobre la avenida, mano sur.",warn:"Tanques de combustible bajo la vereda: no excaves sin ver el plano"},
+   {tipo:"demanda",nombre:"Alta demanda: escuela y 120 viviendas",lat:-29.4006,lng:-66.8640,r:110,det:"Picos de consumo de 7 a 9 y de 19 a 21 h. Si cortás, se nota acá primero."}],
+  otros:[
+   {id:144,servicio:"internet",sintoma:"Conexión intermitente",lat:-29.4038,lng:-66.8640,estado:"Abierto",det:"Lo atiende la cuadrilla de internet. No tiene relación con esta orden."},
+   {id:128,servicio:"agua",sintoma:"Pérdida en vereda",lat:-29.4014,lng:-66.8611,estado:"Resuelto ayer",det:"Se cambió la llave de paso de una conexión domiciliaria."}],
+  materiales:["Abrazadera de reparación Ø110","Caño PVC Ø110, 2 m","Juntas y lubricante","Manómetro","Llave de válvula"]},
+
+ {id:141,servicio:"agua",sintoma:"Sin agua",prioridad:"alta",prioMotivo:"Cerca del hospital: zona de alta demanda",
+  barrio:"Hospital",dir:"Av. Ortiz de Ocampo 1650",ref:"Frente a la plazoleta",avenida:"Av. Ortiz de Ocampo",
+  lat:-29.4152,lng:-66.8398,km:2.9,min:9,estado:"asignada",asig:20,
+  detalle:"No sale nada de la canilla desde las 9",
+  ia:{resumen:"Un solo reclamo y ningún otro reporte en la cuadra. El 29/09 se cambió el medidor del vecino de al lado.",
+      causa:"Probablemente la conexión domiciliaria o el medidor. Revisá la llave de paso y el medidor antes de buscar en la red."},
+  nota:{de:"Operador 02",min:18,txt:"La socia está en su casa toda la mañana. Tocá timbre en el portón verde."},
+  reclamos:[{socio:"Teresa Luna",nro:"21240",dir:"Av. Ortiz de Ocampo 1650",tel:"380 15 420-7765",lat:-29.4152,lng:-66.8398,min:25,nota:"No sale nada de la canilla desde las 9"}],
+  poi:[
+   {tipo:"demanda",nombre:"Alta demanda: hospital y centro de salud",lat:-29.4143,lng:-66.8413,r:140,det:"Abastecimiento prioritario. No cierres válvulas del sector sin autorización de la mesa."},
+   {tipo:"arreglo",nombre:"Arreglo previo: cambio de medidor (29/09)",lat:-29.4154,lng:-66.8395,det:"Medidor del vecino (N° 1648). Puede haber quedado la llave de paso cerrada o una junta mal puesta.",warn:"Mirá esta conexión primero"},
+   {tipo:"valvula",nombre:"Válvula de corte V-31",lat:-29.4166,lng:-66.8384,det:"Cierra el sector Hospital sur.",con:90}],
+  otros:[],
+  materiales:["Medidor de repuesto","Llave de paso ½\"","Cinta de teflón","Manómetro"]},
+
+ {id:136,servicio:"agua",sintoma:"Agua turbia",prioridad:"media",prioMotivo:"",
+  barrio:"Faldeo del Velasco",dir:"Los Cardones 410",ref:"Esquina con Las Jarillas",avenida:"Los Cardones",
+  lat:-29.4478,lng:-66.8764,km:4.8,min:14,estado:"asignada",asig:50,
+  detalle:"Agua marrón al abrir la canilla",
+  ia:{resumen:"2 reclamos de agua turbia en la misma cuadra con 6 minutos de diferencia. El 02/10 se lavó la red del sector.",
+      causa:"Sedimento removido en la red. Purgá desde el hidrante H-31 y tomá una muestra."},
+  nota:{de:"Operador 01",min:50,txt:"Si después de purgar sigue turbia, sacá muestra y avisá: hay que coordinar con la planta."},
+  reclamos:[
+   {socio:"Pedro Agüero",nro:"15521",dir:"Los Cardones 410",tel:"380 15 431-0098",lat:-29.4478,lng:-66.8764,min:64,nota:"Agua marrón al abrir la canilla"},
+   {socio:"Susana Paz",nro:"23090",dir:"Los Cardones 455",tel:"380 15 448-3321",lat:-29.4486,lng:-66.8751,min:58,nota:"Turbia y con olor a tierra"}],
+  poi:[
+   {tipo:"hidrante",nombre:"Hidrante H-31",lat:-29.4491,lng:-66.8749,det:"Usalo para purgar la red del sector."},
+   {tipo:"arreglo",nombre:"Arreglo previo: lavado de red (02/10)",lat:-29.4484,lng:-66.8772,det:"Lavado del ramal Faldeo oeste. Puede haber quedado sedimento en los extremos."},
+   {tipo:"tanque",nombre:"Tanque elevado Faldeo",lat:-29.4463,lng:-66.8786,det:"Limpieza programada para el 30/10."},
+   {tipo:"valvula",nombre:"Válvula de corte V-44",lat:-29.4470,lng:-66.8744,det:"Cierra el ramal Faldeo oeste.",con:60}],
+  otros:[],
+  materiales:["Llave de hidrante","Frasco estéril para muestra","Medidor de cloro","Manguera de purga"]}
+];
+ORDERS.forEach(o=>{
+  o.reclamos.forEach(c=>c.hora=hace(c.min));
+  o.t={asignada:hace(o.asig)}; if(o.salio) o.t.camino=hace(o.salio);
+  o.chk=new Set(); o.mat=new Set(); o.corte=null;
+  const first=o.reclamos.reduce((a,c)=>c.hora<a?c.hora:a,new Date());
+  o.primero=first;
+  o.log=[{h:first,txt:`Primer reclamo: ${o.reclamos.find(c=>c.hora===first).socio}`},
+         {h:o.t.asignada,txt:`${o.nota.de} te asignó la orden${o.reclamos.length>1?` con ${o.reclamos.length} reclamos agrupados`:""}`}];
+  if(o.t.camino) o.log.push({h:o.t.camino,txt:"Saliste hacia el lugar",me:1});
+  o.reclamos.filter(c=>c.prio).forEach(c=>o.log.push({h:c.hora,txt:`Se sumó el reclamo de ${c.socio} (prioridad alta)`}));
+  o.log.sort((a,b)=>a.h-b.h);
+});
+const zona=o=>{const cen=centro(o.reclamos);return {cen,r:Math.max(60,...o.reclamos.map(c=>metros(cen,c)))+70};};
+
+/* ================= estado ================= */
+let cur=null, map=null, curBounds=null;
+const flash=el=>{if(!el) return; el.classList.remove("hl"); void el.offsetWidth; el.classList.add("hl");};
+let toastT;
+function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,3200);}
+function log(o,txt){o.log.push({h:new Date(),txt,me:1}); if(o===cur) renderLog();}
+
+/* ================= formas del mapa (iguales al dashboard) ================= */
+const color=s=>s==="agua"?"var(--agua)":"var(--net)";
+function shape(s,x,y,r,attrs){
+  return s==="agua"?`<circle cx="${x}" cy="${y}" r="${r}" ${attrs}/>`
+    :`<rect x="${x-r*.9}" y="${y-r*.9}" width="${r*1.8}" height="${r*1.8}" transform="rotate(45 ${x} ${y})" ${attrs}/>`;
+}
+const svgOf=(s,size,r,attrs)=>`<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" aria-hidden="true">${shape(s,size/2,size/2,r,attrs)}</svg>`;
+const ATTR={
+  propio:s=>`fill="${color(s)}" stroke="var(--panel)" stroke-width="2"`,
+  otro:s=>`fill="var(--panel)" stroke="${color(s)}" stroke-width="2.5"`,
+  cerrado:()=>`fill="var(--panel)" stroke="var(--ink2)" stroke-width="2" stroke-dasharray="3 2"`};
+const targetSvg=(s,size=34)=>`<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" aria-hidden="true" style="overflow:visible">
+  <circle class="pulse" cx="${size/2}" cy="${size/2}" r="${size/2-5}" fill="none" stroke="${color(s)}" stroke-width="3"/>
+  ${shape(s,size/2,size/2,size/2-6,`fill="${color(s)}" stroke="var(--panel)" stroke-width="3"`)}
+  <circle cx="${size/2}" cy="${size/2}" r="3" fill="var(--panel)"/></svg>`;
+const poiBadge=t=>`<span class="poi-ic${t==="demanda"?" demand":""}">${POI[t][0]}</span>`;
+
+/* ================= lista ================= */
+function renderList(){
+  const enCurso=ORDERS.filter(o=>o.estado==="camino"||o.estado==="sitio").length, hechas=ORDERS.filter(o=>o.estado==="resuelta").length;
+  $("#sum").innerHTML=`<b>${ORDERS.length}</b> órdenes hoy · <b>${enCurso}</b> en curso · <b>${hechas}</b> ${hechas===1?"cerrada":"cerradas"}`;
+  const rank=o=>({camino:0,sitio:0,asignada:1,resuelta:2})[o.estado]*10+({alta:0,media:1,baja:2})[o.prioridad];
+  const list=ORDERS.slice().sort((a,b)=>rank(a)-rank(b)||a.primero-b.primero);
+  let html="", g="";
+  list.forEach(o=>{
+    const grp=o.estado==="resuelta"?"Cerradas hoy":(o.estado==="asignada"?"Pendientes":"En curso");
+    if(grp!==g){g=grp;html+=`<li class="lgroup">${grp}</li>`;}
+    html+=`<li><button class="card ${o.estado==="resuelta"?"resuelta":o.prioridad}" data-id="${o.id}">
+      <span class="l1"><span class="num" style="font-weight:700">#${o.id}</span><span class="svc ${o.servicio}">${SVC[o.servicio]}</span>
+        ${o.estado!=="resuelta"&&o.prioridad!=="baja"?`<span class="prio ${o.prioridad}">Prioridad ${o.prioridad}</span>`:""}
+        <span class="pill ${o.estado}">${STN[o.estado]}</span></span>
+      <span class="s">${esc(o.sintoma)}</span>
+      <span class="a">${esc(o.dir)}, B° ${esc(o.barrio)}</span>
+      <span class="m num">${o.reclamos.length} ${o.reclamos.length===1?"reclamo":"reclamos"} · ${o.estado==="resuelta"?`cerrada a las ${hhmm(o.t.resuelta)}`:`abierta hace ${desde(o.primero)} · a ${fmtD(o.km*1000)}`}</span>
+    </button></li>`;
+  });
+  $("#cards").innerHTML=html;
+}
+$("#cards").addEventListener("click",e=>{const b=e.target.closest(".card"); if(b) openOrder(+b.dataset.id);});
+
+function show(which){
+  $("#scrList").hidden=which!=="list"; $("#scrDet").hidden=which!=="det";
+  if(which==="list"){ if(map){map.remove();map=null;} cur=null; renderList(); }
+  window.scrollTo(0,0);
+}
+$("#back").onclick=()=>show("list");
+
+/* ================= detalle ================= */
+function openOrder(id){
+  cur=ORDERS.find(o=>o.id===id); const o=cur, z=zona(o);
+  $("#detTitle").textContent=`Orden #${o.id}`;
+  const recl=o.reclamos.map((c,i)=>({...c,k:"r"+i})).sort((a,b)=>(b.prio?1:0)-(a.prio?1:0)||a.hora-b.hora);
+  const gmaps=`https://www.google.com/maps/dir/?api=1&destination=${o.lat},${o.lng}&travelmode=driving`;
+  const valvulas=o.poi.filter(p=>p.tipo==="valvula");
+  $("#detBody").innerHTML=`
+  <div class="banner" id="corteBanner" hidden></div>
+  <div class="hero">
+    <div class="tags"><span class="svc ${o.servicio}">${SVC[o.servicio]}</span><span class="prio ${o.prioridad}">Prioridad ${o.prioridad}</span>
+      <span class="muted num">Abierta hace ${desde(o.primero)}</span></div>
+    <h2 class="sint">${esc(o.sintoma)}</h2>
+    ${o.prioMotivo?`<p class="why">${esc(o.prioMotivo)}</p>`:""}
+    <div class="addrbox"><span class="lab">Dirección</span><span class="addr" id="addr">${esc(o.dir)}</span><span class="ref">B° ${esc(o.barrio)} · ${esc(o.ref)}</span></div>
+    <p class="eta num">A <b>${fmtD(o.km*1000)}</b> de tu posición · unos <b>${o.min} min</b> en la camioneta</p>
+    <div class="row-btns">
+      <a class="btn" href="${gmaps}" target="_blank" rel="noopener"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2 17 17l-7-3.5L3 17Z" fill="currentColor"/></svg>Cómo llegar</a>
+      <button class="btn ghost" id="copyAddr">Copiar dirección</button>
+    </div>
+  </div>
+
+  <div class="sec"><h2>Estado</h2><ol class="steps" id="steps"></ol></div>
+
+  <div class="sec" id="secZona"><h2>Zona afectada <span class="cnt num">radio de ${fmtD(z.r)}</span></h2>
+    <div class="zwrap" id="zwrap"><div id="zmap" aria-label="Mapa de la zona afectada"></div>
+      <button class="zbtn" id="zfull" aria-pressed="false">Ampliar</button>
+      <div class="zcard" id="zcard" hidden></div>
+      <span class="znote" id="znote" hidden>Plano esquemático (sin mapa real en esta vista)</span></div>
+    <div class="legend">
+      <span><svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="6.5" fill="none" stroke="${color(o.servicio)}" stroke-width="1.5"/>${shape(o.servicio,7,7,4,`fill="${color(o.servicio)}"`)}</svg>Dirección</span>
+      <span>${svgOf(o.servicio,14,5,ATTR.propio(o.servicio))}Reclamo de esta orden</span>
+      <span>${svgOf("agua",14,5,ATTR.otro("agua"))}Otro reclamo</span>
+      <span>${poiBadge("arreglo")}Punto de interés</span>
+      <span><svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="var(--alert-line)" fill-opacity=".18" stroke="var(--alert-line)" stroke-dasharray="2 2"/></svg>Alta demanda</span>
+    </div>
+    <p class="hint">Tocá un punto del mapa para ver su información.</p>
+  </div>
+
+  <div class="sec"><h2>Problema detectado</h2>
+    <dl class="kv">
+      <dt>Reportan</dt><dd>${esc(o.detalle)}</dd>
+      <dt>Desde</dt><dd class="num">${hhmm(o.primero)} (hace ${desde(o.primero)})</dd>
+      <dt>Alcance</dt><dd class="num">${o.reclamos.length} ${o.reclamos.length===1?"reclamo":`reclamos en ${fmtD(z.r)} de radio`}</dd>
+    </dl>
+    <div class="ia">
+      <div class="h">Resumen de las llamadas <small>automático, confirmalo en el lugar</small></div>
+      <p>${esc(o.ia.resumen)}</p>
+      <p class="cause"><b>Posible causa</b>${esc(o.ia.causa)}</p>
+    </div>
+  </div>
+
+  <div class="sec"><h2>Indicaciones de la mesa</h2>
+    <div class="msg"><small class="num">${esc(o.nota.de)} · ${hhmm(hace(o.nota.min))}</small>${esc(o.nota.txt)}</div>
+  </div>
+
+  <div class="sec"><h2>Acciones</h2>
+    <div class="acts">
+      ${valvulas.length?`<button class="btn ghost wide" data-sheet="corte">Avisar corte de servicio</button>`:""}
+      <button class="btn ghost" data-sheet="nota">Agregar nota</button>
+      <button class="btn ghost" data-sheet="apoyo">Pedir apoyo</button>
+    </div>
+  </div>
+
+  <div class="sec" id="secRecl"><h2 class="fh"><button class="fold" id="foldRecl" aria-expanded="false" aria-controls="reclBody">Reclamos
+      <span class="cnt num">${o.reclamos.length} ${o.reclamos.length===1?"socio":"socios"}</span>
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></h2>
+    <div id="reclBody" hidden><ul class="recl">${recl.map(c=>`<li id="k-${c.k}">
+      <span class="who">${esc(c.socio)}</span><span class="h num">${hhmm(c.hora)}</span>
+      <span class="a">${esc(c.dir)}${metros(o,c)<15?` <span class="muted">· dirección de la orden</span>`:` <span class="muted num">· a ${fmtD(metros(o,c))}</span>`}</span>
+      ${c.prio?`<span class="flag">${esc(c.prio)}</span>`:c.nota?`<span class="n">“${esc(c.nota)}”</span>`:""}
+      <span class="tel num"><span>Socio N° ${c.nro}</span><a href="tel:+54${c.tel.replace(/\D/g,"")}">${c.tel}</a></span></li>`).join("")}</ul></div>
+  </div>
+
+  <div class="sec"><h2>Bitácora</h2><ul class="log" id="log"></ul></div>
+  <div class="actbar" id="actbar"></div>`;
+
+  $("#copyAddr").onclick=()=>{
+    const txt=`${o.dir}, B° ${o.barrio}, La Rioja`;
+    const fallback=()=>{const r=document.createRange();r.selectNodeContents($("#addr"));const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Dirección seleccionada: copiala desde el menú");};
+    try{navigator.clipboard.writeText(txt).then(()=>toast("Dirección copiada"),fallback);}catch(e){fallback();}
+  };
+  $("#zfull").onclick=toggleFull;
+  $("#foldRecl").onclick=()=>setFold($("#reclBody").hidden);
+  document.querySelectorAll("[data-sheet]").forEach(b=>b.onclick=()=>openSheet(b.dataset.sheet));
+  renderStatus(); renderLog(); renderCorte();
+  $("#scrList").hidden=true; $("#scrDet").hidden=false; window.scrollTo(0,0);
+  requestAnimationFrame(()=>buildMap(o));
+}
+function setFold(open){
+  $("#reclBody").hidden=!open; $("#foldRecl").setAttribute("aria-expanded",open);
+}
+function renderStatus(){
+  const o=cur, k=ST.indexOf(o.estado);
+  $("#steps").innerHTML=ST.map((s,i)=>`<li class="${i<k||o.estado==="resuelta"?"done":i===k?"now":""}"><b>${STN[s]}</b><span class="num">${o.t[s]?hhmm(o.t[s]):"–"}</span></li>`).join("");
+  const p=$("#topPill"); p.className="pill "+o.estado; p.textContent=STN[o.estado];
+  const bar=$("#actbar");
+  if(o.estado==="resuelta"){
+    const next=ORDERS.filter(x=>x.estado!=="resuelta").sort((a,b)=>({alta:0,media:1,baja:2})[a.prioridad]-({alta:0,media:1,baja:2})[b.prioridad])[0];
+    bar.innerHTML=`<button class="btn ghost" id="toList">Mis órdenes</button>`+(next?`<button class="btn main" id="nextO">Siguiente: #${next.id} ${esc(next.sintoma.toLowerCase())}</button>`:"");
+    $("#toList").onclick=()=>show("list"); if(next) $("#nextO").onclick=()=>openOrder(next.id);
+    return;
+  }
+  const label={asignada:"Salir hacia el lugar",camino:"Llegué al lugar",sitio:"Cerrar orden"}[o.estado];
+  bar.innerHTML=`<button class="btn ghost" id="barApoyo">Pedir apoyo</button><button class="btn main" id="mainAct">${label}</button>`;
+  $("#barApoyo").onclick=()=>openSheet("apoyo");
+  $("#mainAct").onclick=()=>{
+    if(o.estado==="asignada"){o.estado="camino";o.t.camino=new Date();log(o,"Saliste hacia el lugar. La mesa ve la orden como «Técnico en camino»");toast("La mesa ya sabe que estás en camino");}
+    else if(o.estado==="camino"){o.estado="sitio";o.t.sitio=new Date();log(o,"Llegaste al lugar");toast("Llegada registrada a las "+hhmm(o.t.sitio));}
+    else if(o.estado==="sitio"){openSheet("cierre");return;}
+    renderStatus();
+  };
+}
+function renderLog(){
+  $("#log").innerHTML=cur.log.slice().sort((a,b)=>b.h-a.h).map(l=>`<li class="${l.me?"me":""}"><span class="h num">${hhmm(l.h)}</span><span>${esc(l.txt)}</span></li>`).join("");
+}
+function renderCorte(){
+  const b=$("#corteBanner"), c=cur.corte; b.hidden=!c;
+  if(c) b.innerHTML=`<b>Corte avisado</b> · ${esc(c.valv)} · unas ${c.con} conexiones · ${c.hasta?`hasta las ${hhmm(c.hasta)}`:"sin hora de regreso"}`;
+}
+
+/* ================= mapa de la zona ================= */
+function buildMap(o){
+  if(map){map.remove();map=null;}
+  const el=$("#zmap"); if(!el) return;
+  if(!window.L){el.innerHTML='<p class="nomap">No se pudo cargar el mapa. Revisá la conexión y volvé a abrir la orden.</p>';return;}
+  const z=zona(o), all=[o,...o.reclamos,...o.poi,...o.otros];
+  const R=Math.max(240,...all.map(p=>metros(o,p)+(p.r||0)))+30;
+  const dLat=R/111320, dLng=R/(111320*Math.cos(o.lat*Math.PI/180));
+  const b=curBounds=L.latLngBounds([o.lat-dLat,o.lng-dLng],[o.lat+dLat,o.lng+dLng]);
+  const m=map=L.map(el,{zoomControl:false,scrollWheelZoom:false,zoomSnap:.25,maxBoundsViscosity:1,attributionControl:true});
+  m.fitBounds(b); m.setMaxBounds(b.pad(.35)); m.setMinZoom(m.getZoom()-.5); m.setMaxZoom(18.5);
+  m.attributionControl.setPrefix(false);
+  L.control.zoom({position:"bottomright"}).addTo(m);
+  const tiles=L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,className:"tiles",attribution:"© OpenStreetMap"}).addTo(m);
+  let ok=false; tiles.on("tileload",()=>ok=true);
+  const fb=()=>{if(ok||m!==map||m._esq) return; m._esq=true; m.removeLayer(tiles); esquema(m,o,b.pad(.35)); $("#znote").hidden=false;};
+  tiles.on("tileerror",fb); setTimeout(fb,5000);
+
+  const go=k=>{cerrarFicha();const row=document.getElementById("k-"+k); if(!row) return; if(row.closest("#reclBody")) setFold(true);
+    if($("#zwrap").classList.contains("full")) return; row.scrollIntoView({block:"center",behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"}); flash(row);};
+  const tip=(mk,txt)=>mk.bindTooltip(txt,{direction:"top",offset:[0,-12]});
+
+  // zona afectada
+  if(o.reclamos.length>1) L.circle(z.cen,{radius:z.r,className:"zone "+o.servicio,weight:1.5,dashArray:"6 5",fillOpacity:.12,interactive:false}).addTo(m);
+  // puntos de interés
+  o.poi.forEach((p,i)=>{
+    if(p.tipo==="demanda") L.circle(p,{radius:p.r,className:"zone demand",weight:1.5,dashArray:"2 5",fillOpacity:.1,interactive:false}).addTo(m);
+    const mk=L.marker(p,{icon:L.divIcon({className:"pin",iconSize:[22,22],iconAnchor:[11,11],html:poiBadge(p.tipo)}),keyboard:false}).addTo(m);
+    mk.on("click",e=>{L.DomEvent.stop(e);ficha("p",p);});
+  });
+  // otros reclamos
+  o.otros.forEach((p,i)=>{
+    const res=/resuelto/i.test(p.estado);
+    const mk=L.marker(p,{icon:L.divIcon({className:"pin",iconSize:[20,20],iconAnchor:[10,10],html:svgOf(p.servicio,20,7,res?ATTR.cerrado():ATTR.otro(p.servicio))}),keyboard:false}).addTo(m);
+    mk.on("click",e=>{L.DomEvent.stop(e);ficha("o",p);});
+  });
+  // reclamos de esta orden
+  o.reclamos.forEach((c,i)=>{
+    if(metros(o,c)<15) return;
+    const mk=L.marker(c,{icon:L.divIcon({className:"pin",iconSize:[20,20],iconAnchor:[10,10],html:svgOf(o.servicio,20,7,ATTR.propio(o.servicio))}),keyboard:false}).addTo(m);
+    tip(mk,`${c.socio} · ${hhmm(c.hora)}`); mk.on("click",()=>go("r"+i));
+  });
+  // dirección de la orden
+  const tk=L.marker(o,{zIndexOffset:1000,keyboard:false,icon:L.divIcon({className:"pin",iconSize:[34,34],iconAnchor:[17,17],html:targetSvg(o.servicio)})}).addTo(m);
+  tip(tk,o.dir);
+  m.on("click",cerrarFicha);
+}
+function cerrarFicha(){const c=$("#zcard"); if(c){c.hidden=true;c.innerHTML="";}}
+function ficha(tipo,p){
+  const o=cur, c=$("#zcard"), d=fmtD(metros(o,p));
+  if(tipo==="p"){
+    c.innerHTML=`<div class="zc-h">${poiBadge(p.tipo)}<div><b>${esc(p.nombre)}</b><span class="num">a ${d} de la dirección</span></div></div>
+      <p>${esc(p.det)}${p.con?` Afecta a unas ${p.con} conexiones.`:""}</p>${p.warn?`<p class="warn">${esc(p.warn)}</p>`:""}`;
+  }else{
+    const res=/resuelto/i.test(p.estado);
+    c.innerHTML=`<div class="zc-h">${svgOf(p.servicio,22,8,res?ATTR.cerrado():ATTR.otro(p.servicio))}<div><b class="num">#${p.id} · ${SVC[p.servicio]}: ${esc(p.sintoma)}</b><span class="num">a ${d} de la dirección</span></div></div>
+      <p><b style="color:var(--ink)">${esc(p.estado)}.</b> ${esc(p.det)}</p>`;
+  }
+  c.insertAdjacentHTML("afterbegin",'<button class="x" aria-label="Cerrar">×</button>');
+  c.querySelector(".x").onclick=cerrarFicha; c.hidden=false;
+}
+/* Plano dibujado cuando las teselas no cargan: manzanas de 100 m y la avenida de referencia */
+function esquema(m,o,b){
+  const n=b.getNorth(),s=b.getSouth(),w=b.getWest(),e=b.getEast();
+  const Wm=metros({lat:n,lng:w},{lat:n,lng:e}), Hm=metros({lat:n,lng:w},{lat:s,lng:w});
+  const X=lng=>(lng-w)/(e-w)*Wm, Y=lat=>(n-lat)/(n-s)*Hm, mod=v=>((v%100)+100)%100;
+  const ax=X(o.lng), ay=Y(o.lat), id="blk"+o.id, right=ax<Wm*.6;
+  const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.setAttribute("viewBox",`0 0 ${Wm.toFixed(0)} ${Hm.toFixed(0)}`); svg.setAttribute("preserveAspectRatio","none");
+  svg.innerHTML=`<defs><pattern id="${id}" width="100" height="100" patternUnits="userSpaceOnUse" x="${mod(ax-50).toFixed(1)}" y="${mod(ay).toFixed(1)}">
+      <rect width="100" height="100" fill="var(--street)"/><rect x="7" y="7" width="86" height="86" rx="4" fill="var(--block)"/></pattern></defs>
+    <rect width="${Wm}" height="${Hm}" fill="url(#${id})"/>
+    <rect x="0" y="${ay-14}" width="${Wm}" height="28" fill="var(--avenue)"/>
+    <text x="${(Wm*.04).toFixed(0)}" y="${(ay+14+Wm/30).toFixed(0)}" font-size="${(Wm/34).toFixed(0)}" font-weight="700" fill="var(--ink)" stroke="var(--avenue)" stroke-width="${(Wm/160).toFixed(1)}" paint-order="stroke" text-anchor="start">${esc(o.avenida)}</text>`;
+  L.svgOverlay(svg,b,{interactive:false}).addTo(m).bringToBack();
+}
+function toggleFull(){
+  const w=$("#zwrap"), on=!w.classList.contains("full");
+  w.classList.toggle("full",on); document.body.style.overflow=on?"hidden":"";
+  $("#zfull").textContent=on?"Cerrar mapa":"Ampliar"; $("#zfull").setAttribute("aria-pressed",on);
+  if(!map) return;
+  setTimeout(()=>{map.invalidateSize(); map.setMinZoom(0); map.fitBounds(curBounds); map.setMinZoom(map.getZoom()-.5);
+    on?map.scrollWheelZoom.enable():map.scrollWheelZoom.disable();},60);
+}
+
+/* ================= hojas: corte, apoyo, nota, cierre ================= */
+const radio=(name,vals,sel)=>`<div class="opts" role="radiogroup">${vals.map((v,i)=>`<label class="opt"><input type="radio" name="${name}" id="${name}${i}" value="${esc(v)}" ${v===sel?"checked":""}><span>${esc(v)}</span></label>`).join("")}</div>`;
+const SHEETS={
+  corte:o=>{const vs=o.poi.filter(p=>p.tipo==="valvula");return `<form id="f">
+    <h2 id="sheetTitle">Avisar corte de servicio</h2>
+    <p class="lead">La mesa avisa a los socios afectados antes de que cierres la válvula.</p>
+    <div class="field"><label for="cvalv">Válvula que vas a cerrar</label>
+      <select id="cvalv">${vs.map(v=>`<option value="${esc(v.nombre)}" data-con="${v.con}">${esc(v.nombre)} · unas ${v.con} conexiones</option>`).join("")}</select></div>
+    <fieldset class="field"><legend>Tiempo estimado sin servicio</legend>${radio("cdur",["1 hora","2 horas","4 horas","Sin estimar"],"2 horas")}</fieldset>
+    <div class="field"><label for="cmot">Motivo para los socios</label><input type="text" id="cmot" value="Reparación de una pérdida en la red"></div>
+    <div class="foot"><button type="button" class="btn ghost" data-close>Cancelar</button><button class="btn" type="submit">Enviar aviso</button></div></form>`;},
+  apoyo:o=>`<form id="f">
+    <h2 id="sheetTitle">Pedir apoyo</h2>
+    <p class="lead">El pedido le llega a la mesa con la ubicación de la orden #${o.id}.</p>
+    <fieldset class="field"><legend>Qué necesitás</legend>${radio("atipo",["Otra cuadrilla","Retroexcavadora","Camión cisterna","Materiales"],"")}</fieldset>
+    <div class="field"><label for="adet">Detalle</label><textarea id="adet" placeholder="Ej.: la pérdida está bajo la calzada, hay que romper unos 2 m de asfalto"></textarea></div>
+    <p class="err" id="ferr" hidden></p>
+    <div class="foot"><button type="button" class="btn ghost" data-close>Cancelar</button><button class="btn" type="submit">Enviar pedido</button></div></form>`,
+  nota:o=>`<form id="f">
+    <h2 id="sheetTitle">Agregar nota</h2>
+    <p class="lead">Queda en la bitácora de la orden y la ve la mesa.</p>
+    <div class="field"><label for="ntxt">Nota</label><textarea id="ntxt" placeholder="Ej.: el socio de Los Talas 132 no estaba, dejé aviso en la puerta"></textarea></div>
+    <p class="err" id="ferr" hidden></p>
+    <div class="foot"><button type="button" class="btn ghost" data-close>Cancelar</button><button class="btn" type="submit">Guardar nota</button></div></form>`,
+  cierre:o=>`<form id="f" novalidate>
+    <h2 id="sheetTitle">Cerrar orden #${o.id}</h2>
+    <p class="lead">La mesa marca el incidente como resuelto y avisa a ${o.reclamos.length===1?"la persona que reclamó":`los ${o.reclamos.length} socios que reclamaron`}.</p>
+    <div class="field"><label for="ccausa">Causa encontrada</label>
+      <select id="ccausa"><option value="">Elegí una opción</option>${CAUSAS[o.servicio].map(c=>`<option>${esc(c)}</option>`).join("")}</select></div>
+    <div class="field"><label for="ctrab">Trabajo realizado</label>
+      <textarea id="ctrab" placeholder="Ej.: cambio de abrazadera en la unión del 14/08, purga y prueba de presión"></textarea></div>
+    <fieldset class="field"><legend>Materiales usados</legend>
+      <div class="chk">${o.materiales.map((m,i)=>`<label><input type="checkbox" id="cm${i}" value="${esc(m)}" ${o.mat.has(i)?"checked":""}><span>${esc(m)}</span></label>`).join("")}</div></fieldset>
+    <div class="field"><label for="cfotos">Fotos del trabajo</label>
+      <input type="file" id="cfotos" accept="image/*" capture="environment" multiple><div class="photos" id="cph"></div></div>
+    <div class="field">
+      <label class="inl"><input type="checkbox" id="cverif"><span>Un socio confirmó que el servicio volvió</span></label>
+      <label class="inl"><input type="checkbox" id="cpend"><span>Queda trabajo pendiente (vereda, bacheo, nueva visita)</span></label></div>
+    <p class="err" id="ferr" hidden></p>
+    <div class="foot"><button type="button" class="btn ghost" data-close>Cancelar</button><button class="btn" type="submit">Cerrar orden</button></div></form>`
+};
+let lastFocus=null;
+function openSheet(kind){
+  const o=cur; lastFocus=document.activeElement;
+  $("#sheetBody").innerHTML=SHEETS[kind](o); $("#sheet").hidden=false; document.body.style.overflow="hidden";
+  const f=$("#f"), err=msg=>{const e=$("#ferr"); e.textContent=msg; e.hidden=false;};
+  f.querySelectorAll("[data-close]").forEach(b=>b.onclick=closeSheet);
+  setTimeout(()=>{const first=f.querySelector("select,textarea,input:not([type=radio]):not([type=checkbox]):not([type=file])"); if(first) first.focus();},30);
+  if(kind==="cierre"){
+    $("#cfotos").onchange=e=>{$("#cph").innerHTML=""; [...e.target.files].forEach(fl=>{const im=document.createElement("img");im.alt="Foto adjunta";im.src=URL.createObjectURL(fl);$("#cph").appendChild(im);});};
+  }
+  f.onsubmit=e=>{
+    e.preventDefault();
+    if(kind==="corte"){
+      const sel=$("#cvalv").selectedOptions[0], dur=f.cdur.value, hrs={"1 hora":1,"2 horas":2,"4 horas":4}[dur];
+      o.corte={valv:sel.value,con:+sel.dataset.con,hasta:hrs?new Date(Date.now()+hrs*3600000):null};
+      log(o,`Avisaste corte en ${sel.value} (${dur.toLowerCase()}): ${$("#cmot").value}`); renderCorte(); toast("Aviso enviado. La mesa informa a los socios");
+    }
+    if(kind==="apoyo"){
+      const t=f.atipo.value; if(!t) return err("Elegí qué tipo de apoyo necesitás.");
+      const d=$("#adet").value.trim(); log(o,`Pediste apoyo: ${t}${d?`. ${d}`:""}`); toast("Pedido enviado a la mesa");
+    }
+    if(kind==="nota"){
+      const d=$("#ntxt").value.trim(); if(!d) return err("Escribí la nota antes de guardarla.");
+      log(o,`Nota: ${d}`); toast("Nota guardada");
+    }
+    if(kind==="cierre"){
+      const causa=$("#ccausa").value, trab=$("#ctrab").value.trim();
+      if(!causa) return err("Elegí la causa que encontraste."); if(trab.length<5) return err("Contá brevemente qué trabajo hiciste.");
+      const nf=$("#cfotos").files.length, mats=[...f.querySelectorAll(".chk input:checked")].map(x=>x.value);
+      o.estado="resuelta"; o.t.resuelta=new Date();
+      o.cierre={causa,trab,mats,fotos:nf,verif:$("#cverif").checked,pend:$("#cpend").checked};
+      if(o.corte){log(o,`Servicio restablecido en ${o.corte.valv}`); o.corte=null; renderCorte();}
+      log(o,`Cerraste la orden. Causa: ${causa.toLowerCase()}. ${trab}${mats.length?` Materiales: ${mats.join(", ")}.`:""}${nf?` ${nf} ${nf===1?"foto":"fotos"}.`:""}`);
+      if(o.cierre.pend) log(o,"Queda trabajo pendiente: la mesa programa una nueva visita");
+      renderStatus(); toast(`Orden #${o.id} cerrada. La mesa avisa a ${o.reclamos.length===1?"la socia":`los ${o.reclamos.length} socios`}`);
+    }
+    closeSheet();
+  };
+}
+function closeSheet(){
+  $("#sheet").hidden=true; $("#sheetBody").innerHTML="";
+  document.body.style.overflow=$("#zwrap")&&$("#zwrap").classList.contains("full")?"hidden":"";
+  if(lastFocus&&lastFocus.isConnected) lastFocus.focus();
+}
+$("#scrim").onclick=closeSheet;
+document.addEventListener("keydown",e=>{if(e.key!=="Escape") return;
+  if(!$("#sheet").hidden) closeSheet(); else if($("#zcard")&&!$("#zcard").hidden) cerrarFicha(); else if($("#zwrap")&&$("#zwrap").classList.contains("full")) toggleFull();});
+
+/* ================= inicio ================= */
+const clock=()=>$("#clock").textContent=hhmm(new Date());
+clock(); setInterval(clock,15000);
+renderList(); openOrder(142);
+</script>
+
+</body>
+</html>

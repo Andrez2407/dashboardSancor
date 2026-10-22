@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Administración – Mesa de reclamos</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&display=swap">
+<style>
+ .leaflet-pane, .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-tile-container, .leaflet-pane > svg, .leaflet-pane > canvas, .leaflet-zoom-box, .leaflet-image-layer, .leaflet-layer { position: absolute; left: 0; top: 0; } .leaflet-container { overflow: hidden; } .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow { -webkit-user-select: none; -moz-user-select: none; user-select: none; -webkit-user-drag: none; } .leaflet-tile::selection { background: transparent; } .leaflet-safari .leaflet-tile { image-rendering: -webkit-optimize-contrast; } .leaflet-safari .leaflet-tile-container { width: 1600px; height: 1600px; -webkit-transform-origin: 0 0; } .leaflet-marker-icon, .leaflet-marker-shadow { display: block; } .leaflet-container .leaflet-overlay-pane svg { max-width: none !important; max-height: none !important; } .leaflet-container .leaflet-marker-pane img, .leaflet-container .leaflet-shadow-pane img, .leaflet-container .leaflet-tile-pane img, .leaflet-container img.leaflet-image-layer, .leaflet-container .leaflet-tile { max-width: none !important; max-height: none !important; width: auto; padding: 0; } .leaflet-container img.leaflet-tile { mix-blend-mode: plus-lighter; } .leaflet-container.leaflet-touch-zoom { -ms-touch-action: pan-x pan-y; touch-action: pan-x pan-y; } .leaflet-container.leaflet-touch-drag { -ms-touch-action: pinch-zoom; touch-action: none; touch-action: pinch-zoom; } .leaflet-container.leaflet-touch-drag.leaflet-touch-zoom { -ms-touch-action: none; touch-action: none; } .leaflet-container { -webkit-tap-highlight-color: transparent; } .leaflet-container a { -webkit-tap-highlight-color: rgba(51, 181, 229, 0.4); } .leaflet-tile { filter: inherit; visibility: hidden; } .leaflet-tile-loaded { visibility: inherit; } .leaflet-zoom-box { width: 0; height: 0; -moz-box-sizing: border-box; box-sizing: border-box; z-index: 800; } .leaflet-overlay-pane svg { -moz-user-select: none; } .leaflet-pane { z-index: 400; } .leaflet-tile-pane { z-index: 200; } .leaflet-overlay-pane { z-index: 400; } .leaflet-shadow-pane { z-index: 500; } .leaflet-marker-pane { z-index: 600; } .leaflet-tooltip-pane { z-index: 650; } .leaflet-popup-pane { z-index: 700; } .leaflet-map-pane canvas { z-index: 100; } .leaflet-map-pane svg { z-index: 200; } .leaflet-vml-shape { width: 1px; height: 1px; } .lvml { display: inline-block; position: absolute; } .leaflet-control { position: relative; z-index: 800; pointer-events: visiblePainted; pointer-events: auto; } .leaflet-top, .leaflet-bottom { position: absolute; z-index: 1000; pointer-events: none; } .leaflet-top { top: 0; } .leaflet-right { right: 0; } .leaflet-bottom { bottom: 0; } .leaflet-left { left: 0; } .leaflet-control { float: left; clear: both; } .leaflet-right .leaflet-control { float: right; } .leaflet-top .leaflet-control { margin-top: 10px; } .leaflet-bottom .leaflet-control { margin-bottom: 10px; } .leaflet-left .leaflet-control { margin-left: 10px; } .leaflet-right .leaflet-control { margin-right: 10px; } .leaflet-fade-anim .leaflet-popup { opacity: 0; -webkit-transition: opacity 0.2s linear; -moz-transition: opacity 0.2s linear; transition: opacity 0.2s linear; } .leaflet-fade-anim .leaflet-map-pane .leaflet-popup { opacity: 1; } .leaflet-zoom-animated { -webkit-transform-origin: 0 0; -ms-transform-origin: 0 0; transform-origin: 0 0; } svg.leaflet-zoom-animated { will-change: transform; } .leaflet-zoom-anim .leaflet-zoom-animated { -webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1); -moz-transition: -moz-transform 0.25s cubic-bezier(0,0,0.25,1); transition: transform 0.25s cubic-bezier(0,0,0.25,1); } .leaflet-zoom-anim .leaflet-tile, .leaflet-pan-anim .leaflet-tile { -webkit-transition: none; -moz-transition: none; transition: none; } .leaflet-zoom-anim .leaflet-zoom-hide { visibility: hidden; } .leaflet-interactive { cursor: pointer; } .leaflet-grab { cursor: -webkit-grab; cursor: -moz-grab; cursor: grab; } .leaflet-crosshair, .leaflet-crosshair .leaflet-interactive { cursor: crosshair; } .leaflet-popup-pane, .leaflet-control { cursor: auto; } .leaflet-dragging .leaflet-grab, .leaflet-dragging .leaflet-grab .leaflet-interactive, .leaflet-dragging .leaflet-marker-draggable { cursor: move; cursor: -webkit-grabbing; cursor: -moz-grabbing; cursor: grabbing; } .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-image-layer, .leaflet-pane > svg path, .leaflet-tile-container { pointer-events: none; } .leaflet-marker-icon.leaflet-interactive, .leaflet-image-layer.leaflet-interactive, .leaflet-pane > svg path.leaflet-interactive, svg.leaflet-image-layer.leaflet-interactive path { pointer-events: visiblePainted; pointer-events: auto; } .leaflet-container { background: #ddd; outline-offset: 1px; } .leaflet-container a { color: #0078A8; } .leaflet-zoom-box { border: 2px dotted #38f; background: rgba(255,255,255,0.5); } .leaflet-container { font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; font-size: 12px; font-size: 0.75rem; line-height: 1.5; } .leaflet-bar { box-shadow: 0 1px 5px rgba(0,0,0,0.65); border-radius: 4px; } .leaflet-bar a { background-color: #fff; border-bottom: 1px solid #ccc; width: 26px; height: 26px; line-height: 26px; display: block; text-align: center; text-decoration: none; color: black; } .leaflet-bar a, .leaflet-control-layers-toggle { background-position: 50% 50%; background-repeat: no-repeat; display: block; } .leaflet-bar a:hover, .leaflet-bar a:focus { background-color: #f4f4f4; } .leaflet-bar a:first-child { border-top-left-radius: 4px; border-top-right-radius: 4px; } .leaflet-bar a:last-child { border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-bottom: none; } .leaflet-bar a.leaflet-disabled { cursor: default; background-color: #f4f4f4; color: #bbb; } .leaflet-touch .leaflet-bar a { width: 30px; height: 30px; line-height: 30px; } .leaflet-touch .leaflet-bar a:first-child { border-top-left-radius: 2px; border-top-right-radius: 2px; } .leaflet-touch .leaflet-bar a:last-child { border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; } .leaflet-control-zoom-in, .leaflet-control-zoom-out { font: bold 18px 'Lucida Console', Monaco, monospace; text-indent: 1px; } .leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out { font-size: 22px; } .leaflet-control-layers { box-shadow: 0 1px 5px rgba(0,0,0,0.4); background: #fff; border-radius: 5px; } .leaflet-control-layers-toggle { width: 36px; height: 36px; } .leaflet-retina .leaflet-control-layers-toggle { background-size: 26px 26px; } .leaflet-touch .leaflet-control-layers-toggle { width: 44px; height: 44px; } .leaflet-control-layers .leaflet-control-layers-list, .leaflet-control-layers-expanded .leaflet-control-layers-toggle { display: none; } .leaflet-control-layers-expanded .leaflet-control-layers-list { display: block; position: relative; } .leaflet-control-layers-expanded { padding: 6px 10px 6px 6px; color: #333; background: #fff; } .leaflet-control-layers-scrollbar { overflow-y: scroll; overflow-x: hidden; padding-right: 5px; } .leaflet-control-layers-selector { margin-top: 2px; position: relative; top: 1px; } .leaflet-control-layers label { display: block; font-size: 13px; font-size: 1.08333em; } .leaflet-control-layers-separator { height: 0; border-top: 1px solid #ddd; margin: 5px -10px 5px -6px; } .leaflet-default-icon-path { } .leaflet-container .leaflet-control-attribution { background: #fff; background: rgba(255, 255, 255, 0.8); margin: 0; } .leaflet-control-attribution, .leaflet-control-scale-line { padding: 0 5px; color: #333; line-height: 1.4; } .leaflet-control-attribution a { text-decoration: none; } .leaflet-control-attribution a:hover, .leaflet-control-attribution a:focus { text-decoration: underline; } .leaflet-attribution-flag { display: inline !important; vertical-align: baseline !important; width: 1em; height: 0.6669em; } .leaflet-left .leaflet-control-scale { margin-left: 5px; } .leaflet-bottom .leaflet-control-scale { margin-bottom: 5px; } .leaflet-control-scale-line { border: 2px solid #777; border-top: none; line-height: 1.1; padding: 2px 5px 1px; white-space: nowrap; -moz-box-sizing: border-box; box-sizing: border-box; background: rgba(255, 255, 255, 0.8); text-shadow: 1px 1px #fff; } .leaflet-control-scale-line:not(:first-child) { border-top: 2px solid #777; border-bottom: none; margin-top: -2px; } .leaflet-control-scale-line:not(:first-child):not(:last-child) { border-bottom: 2px solid #777; } .leaflet-touch .leaflet-control-attribution, .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar { box-shadow: none; } .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar { border: 2px solid rgba(0,0,0,0.2); background-clip: padding-box; } .leaflet-popup { position: absolute; text-align: center; margin-bottom: 20px; } .leaflet-popup-content-wrapper { padding: 1px; text-align: left; border-radius: 12px; } .leaflet-popup-content { margin: 13px 24px 13px 20px; line-height: 1.3; font-size: 13px; font-size: 1.08333em; min-height: 1px; } .leaflet-popup-content p { margin: 17px 0; margin: 1.3em 0; } .leaflet-popup-tip-container { width: 40px; height: 20px; position: absolute; left: 50%; margin-top: -1px; margin-left: -20px; overflow: hidden; pointer-events: none; } .leaflet-popup-tip { width: 17px; height: 17px; padding: 1px; margin: -10px auto 0; pointer-events: auto; -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); } .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: white; color: #333; box-shadow: 0 3px 14px rgba(0,0,0,0.4); } .leaflet-container a.leaflet-popup-close-button { position: absolute; top: 0; right: 0; border: none; text-align: center; width: 24px; height: 24px; font: 16px/24px Tahoma, Verdana, sans-serif; color: #757575; text-decoration: none; background: transparent; } .leaflet-container a.leaflet-popup-close-button:hover, .leaflet-container a.leaflet-popup-close-button:focus { color: #585858; } .leaflet-popup-scrolled { overflow: auto; } .leaflet-oldie .leaflet-popup-content-wrapper { -ms-zoom: 1; } .leaflet-oldie .leaflet-popup-tip { width: 24px; margin: 0 auto; -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)"; filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678); } .leaflet-oldie .leaflet-control-zoom, .leaflet-oldie .leaflet-control-layers, .leaflet-oldie .leaflet-popup-content-wrapper, .leaflet-oldie .leaflet-popup-tip { border: 1px solid #999; } .leaflet-div-icon { background: #fff; border: 1px solid #666; } .leaflet-tooltip { position: absolute; padding: 6px; background-color: #fff; border: 1px solid #fff; border-radius: 3px; color: #222; white-space: nowrap; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; pointer-events: none; box-shadow: 0 1px 3px rgba(0,0,0,0.4); } .leaflet-tooltip.leaflet-interactive { cursor: pointer; pointer-events: auto; } .leaflet-tooltip-top:before, .leaflet-tooltip-bottom:before, .leaflet-tooltip-left:before, .leaflet-tooltip-right:before { position: absolute; pointer-events: none; border: 6px solid transparent; background: transparent; content: ""; } .leaflet-tooltip-bottom { margin-top: 6px; } .leaflet-tooltip-top { margin-top: -6px; } .leaflet-tooltip-bottom:before, .leaflet-tooltip-top:before { left: 50%; margin-left: -6px; } .leaflet-tooltip-top:before { bottom: 0; margin-bottom: -12px; border-top-color: #fff; } .leaflet-tooltip-bottom:before { top: 0; margin-top: -12px; margin-left: -6px; border-bottom-color: #fff; } .leaflet-tooltip-left { margin-left: -6px; } .leaflet-tooltip-right { margin-left: 6px; } .leaflet-tooltip-left:before, .leaflet-tooltip-right:before { top: 50%; margin-top: -6px; } .leaflet-tooltip-left:before { right: 0; margin-right: -12px; border-left-color: #fff; } .leaflet-tooltip-right:before { left: 0; margin-left: -12px; border-right-color: #fff; } @media print { .leaflet-control { -webkit-print-color-adjust: exact; print-color-adjust: exact; } } 
+:root{
+  color-scheme:dark;
+  --bg:#070D0C; --panel:#0D1614; --ink:#E8F1EE; --ink2:#8CA39C; --line:#1E302C;
+  --land:#0A1312; --urban:#111E1B; --street:#1F322E; --road:#3D5850; --sierra:#060B0A;
+  --agua:#5AA2FF; --net:#FF79C6; --alert:#FFC247; --alert-bg:#33280A; --ok:#5FD39A;
+  --fill:#17305A; --rec:#D5342B;
+  --h1:#2F5D8A; --h2:#8E3FA8; --h3:#E2433A; --h4:#FF9F43; --h5:#FFF0A8;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+  font-family:Archivo,"Segoe UI",system-ui,sans-serif;font-size:15px;line-height:1.45;
+  display:grid;grid-template-rows:auto 1fr}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--agua);outline-offset:2px}
+h1,h2,h3,p{margin:0}
+.num{font-variant-numeric:tabular-nums}
+
+header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:10px 18px;
+  background:var(--panel);border-bottom:1px solid var(--line)}
+header h1{font-size:19px;font-weight:800;font-stretch:112%;letter-spacing:-.01em}
+header .sub{color:var(--ink2);font-size:13px}
+header .right{margin-left:auto;display:flex;gap:14px;align-items:center;font-size:13px;color:var(--ink2)}
+.sim-tag{border:1px dashed var(--road);padding:2px 8px;border-radius:3px}
+.tabs{display:flex;gap:4px;margin-left:12px}
+.tabs a{color:var(--ink2);text-decoration:none;font-size:14px;font-weight:600;padding:6px 12px;border-radius:4px;border:1px solid transparent}
+.tabs a:hover{color:var(--ink);border-color:var(--line)}
+.tabs a[aria-current="page"]{color:var(--ink);background:var(--bg);border-color:var(--line)}
+.tabs a:focus-visible{outline:2px solid var(--agua);outline-offset:2px}
+
+main{display:grid;grid-template-columns:minmax(270px,310px) minmax(0,1fr) minmax(340px,400px);min-height:0}
+section{min-height:0;display:flex;flex-direction:column}
+.side{background:var(--panel)}
+#summary{border-right:1px solid var(--line)}
+#records{border-left:1px solid var(--line)}
+.head{display:flex;align-items:baseline;gap:10px;padding:14px 18px 10px}
+.head h2{font-size:15px;font-weight:700;font-stretch:112%}
+.head .meta{margin-left:auto;color:var(--ink2);font-size:13px}
+.scroll{overflow-y:auto;flex:1;min-height:0}
+.live{width:9px;height:9px;border-radius:50%;background:var(--rec);flex:none;display:inline-block;animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+@keyframes flash{from{background:var(--fill)}to{background:transparent}}
+.mini{font-size:12.5px;padding:5px 10px;border-radius:4px;border:1px solid var(--line);background:transparent}
+.mini:hover{border-color:var(--road)}
+.tag{display:inline-block;font-size:12px;font-weight:600;margin-right:6px}
+.tag.agua{color:var(--agua)} .tag.internet{color:var(--net)}
+
+/* resumen */
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:0 18px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.kpi{background:var(--panel);padding:9px 12px 10px;margin:0}
+.kpi dt{font-size:12.5px;color:var(--ink2)}
+.kpi dd{margin:1px 0 0;font-size:22px;font-weight:700;font-stretch:106%;line-height:1.2}
+.kpi dd small{font-size:13px;font-weight:600;color:var(--ink2)}
+.sub-h{font-size:13px;color:var(--ink2);font-weight:600;padding:18px 18px 6px;display:flex;gap:10px}
+.sub-h span{margin-left:auto;font-weight:400}
+.rank,.ops{list-style:none;margin:0;padding:0}
+.rank button,.ops button{display:grid;width:100%;border:0;background:transparent;text-align:left;padding:7px 18px}
+.rank button:hover,.ops button:hover,.ops button.sel{background:var(--bg)}
+.rank button{grid-template-columns:1fr auto;gap:4px 10px}
+.rank .nm{font-weight:600;font-size:14px}
+.rank .ct{font-size:13px;color:var(--ink2)}
+.rank .bars{grid-column:1/-1;display:flex;gap:2px;height:6px}
+.rank .bars i{display:block;height:100%;border-radius:1px;min-width:0}
+.ops button{grid-template-columns:10px 1fr auto;gap:1px 10px;align-items:center}
+.ops .nm{font-weight:600;font-size:14px}
+.ops .ct{font-size:13px;color:var(--ink2)}
+.ops .st{grid-column:2/-1;font-size:12.5px;color:var(--ink2)}
+.ops .st.busy{color:var(--ink)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.dot.busy{background:var(--rec);animation:blink 1.4s infinite}
+.empty-l{padding:14px 18px;color:var(--ink2);font-size:14px}
+
+/* mapa */
+#mapsec{position:relative;background:var(--land)}
+#map{width:100%;height:100%;background:var(--land);font:inherit;z-index:0}
+.leaflet-container a{color:var(--ink2)}
+.osm-dark{filter:invert(1) hue-rotate(180deg) brightness(.75) contrast(.95) saturate(.4)}
+.leaflet-control-attribution{background:rgba(7,13,12,.75)!important;color:var(--ink2);font-size:11px}
+.leaflet-bar a,.leaflet-bar a:hover{background:var(--panel);color:var(--ink);border-bottom-color:var(--line)}
+.leaflet-bar{border:1px solid var(--line)!important}
+.leaflet-map-pane canvas.leaflet-heatmap-layer{z-index:300}
+.pin svg{display:block;filter:drop-shadow(0 0 2px #000)}
+.livepin span{position:absolute;left:28px;top:1px;white-space:nowrap;font-size:12.5px;font-weight:700;color:var(--ink);text-shadow:0 0 4px #000,0 0 2px #000}
+.bar{z-index:1000;position:absolute;top:12px;left:12px;right:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;pointer-events:none}
+.bar>*{pointer-events:auto}
+.chips{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.chips button{border:0;background:transparent;padding:6px 12px;font-size:13px;border-right:1px solid var(--line)}
+.chips button:last-child{border-right:0}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--panel);font-weight:600}
+.legend{margin-left:auto;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:6px 10px;font-size:12.5px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;color:var(--ink2)}
+.legend .ramp{width:96px;height:8px;border-radius:2px;background:linear-gradient(90deg,var(--h1),var(--h2),var(--h3),var(--h4),var(--h5))}
+.legend b{color:var(--ink);font-weight:600}
+.detail{z-index:1000;position:absolute;left:12px;bottom:26px;width:min(350px,calc(100% - 24px));max-height:calc(100% - 100px);overflow-y:auto;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:12px 14px;font-size:14px}
+.detail h3{font-size:16px;display:flex;align-items:center;gap:8px;padding-right:20px}
+.detail .s{color:var(--ink2);font-size:13px;margin-bottom:10px}
+.detail .x{position:absolute;top:6px;right:8px;border:0;background:none;font-size:20px;line-height:1;color:var(--ink2)}
+.kv{margin:0;border:1px solid var(--line);border-radius:4px}
+.kv div{display:grid;grid-template-columns:84px 1fr;gap:8px;padding:6px 10px;border-bottom:1px solid var(--line)}
+.kv div:last-child{border-bottom:0}
+.kv dt{color:var(--ink2);font-size:13px}
+.kv dd{margin:0;font-weight:600}
+.kv dd.wait{font-weight:400;color:var(--ink2)}
+.kv .new{animation:flash 1.6s}
+.tr-title{padding:12px 0 6px;font-size:13px;color:var(--ink2)}
+.transcript{display:flex;flex-direction:column;gap:7px;max-height:210px;overflow-y:auto}
+.transcript p{max-width:34ch;padding:6px 9px;border-radius:4px;font-size:13.5px}
+.transcript .socio{background:var(--bg)}
+.transcript .op{align-self:flex-end;border:1px solid var(--line)}
+.transcript small{display:block;color:var(--ink2);font-size:11.5px}
+.note{flex-basis:100%;font-size:12.5px;color:var(--alert)}
+.note span{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:5px 9px;display:inline-block;max-width:52ch}
+svg text{font-family:inherit;fill:var(--ink2)}
+.pulse{animation:pulse 1.6s ease-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes pulse{from{transform:scale(.6);opacity:.9}to{transform:scale(2.4);opacity:0}}
+
+/* registros */
+.filters{display:flex;gap:8px;padding:0 18px 12px;flex-wrap:wrap}
+.filters input,.filters select{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:6px 9px;font-size:13px;min-width:0}
+.filters input{flex:1 1 150px}
+.filters select{flex:0 1 auto;max-width:170px}
+.grp{display:flex;align-items:center;gap:8px;padding:7px 18px;font-size:12.5px;font-weight:600;color:var(--ink2);border-top:1px solid var(--line);background:var(--panel)}
+#recList .grp{position:sticky;top:0;z-index:1}
+.grp .n{margin-left:auto;font-weight:400}
+.hist{list-style:none;margin:0;padding:0}
+.hist>li:not(.grp){border-top:1px solid var(--line)}
+.hist button{display:grid;grid-template-columns:48px 1fr;gap:1px 10px;width:100%;text-align:left;border:0;background:transparent;padding:9px 18px}
+.hist button:hover,.hist button.sel{background:var(--bg)}
+.hist .h{color:var(--ink2);font-size:13px;grid-row:span 3;padding-top:1px}
+.hist .who{font-weight:600;display:flex;align-items:center;gap:7px}
+.hist .what{font-size:13px;color:var(--ink2)}
+.hist .op{font-size:12.5px;color:var(--ink2)}
+.hist .op b{color:var(--ink);font-weight:600}
+#liveList button{background:rgba(213,52,43,.07)}
+#liveList button:hover,#liveList button.sel{background:rgba(213,52,43,.16)}
+#liveList .h{color:var(--ink);font-weight:700}
+.hist .new{animation:flash 2.2s}
+#more{margin:12px 18px 18px}
+
+@media (max-width:1180px){
+  main{grid-template-columns:minmax(0,1fr) minmax(330px,380px);grid-template-rows:minmax(0,1fr) auto}
+  #mapsec{grid-column:1;grid-row:1}
+  #records{grid-column:2;grid-row:1 / span 2}
+  #summary{grid-column:1;grid-row:2;border-right:0;border-top:1px solid var(--line);max-height:42vh}
+}
+@media (max-width:820px){
+  body{height:auto;display:block}
+  main{display:flex;flex-direction:column}
+  #mapsec{order:-1}
+  #summary,#records{border:0;border-bottom:1px solid var(--line);max-height:none}
+  #mapsec{height:78vw;max-height:560px;min-height:360px}
+  .scroll{overflow:visible}
+  .tabs{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){.live,.dot.busy,.pulse,.kv .new,.hist .new{animation:none}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Administración</h1>
+    <div class="sub">Cooperativa de servicios, La Rioja Capital</div>
+  </div>
+  <nav class="tabs" aria-label="Secciones"><a href="dashboard-reclamos.html">Dashboard</a><a href="map.html">Mapa</a><a href="dashboard-admin.html" aria-current="page">Administración</a></nav>
+  <div class="right">
+    <span class="sim-tag">Datos simulados</span>
+    <span>Administrador</span>
+    <span class="num" id="clock"></span>
+  </div>
+</header>
+
+<main>
+  <section id="summary" class="side" aria-label="Resumen del período">
+    <div class="head"><h2>Resumen</h2><span class="meta" id="sumMeta"></span></div>
+    <div class="scroll">
+      <dl class="kpis" id="kpis"></dl>
+      <h3 class="sub-h">Zonas más afectadas<span id="rankLeg"></span></h3>
+      <ol class="rank" id="rank"></ol>
+      <h3 class="sub-h">Operarios<span>llamadas</span></h3>
+      <ul class="ops" id="ops"></ul>
+    </div>
+  </section>
+
+  <section id="mapsec" aria-label="Mapa de calor de reclamos">
+    <div id="map" aria-label="Mapa de calor de La Rioja Capital con la concentración de reclamos"></div>
+    <div class="bar">
+      <div class="chips" id="period" role="group" aria-label="Período">
+        <button data-p="dia" aria-pressed="true">Día</button>
+        <button data-p="semana" aria-pressed="false">Semana</button>
+        <button data-p="mes" aria-pressed="false">Mes</button>
+        <button data-p="anio" aria-pressed="false">Año</button>
+      </div>
+      <div class="chips" id="svc" role="group" aria-label="Filtrar por servicio">
+        <button data-f="todos" aria-pressed="true">Todos</button>
+        <button data-f="agua" aria-pressed="false">Agua</button>
+        <button data-f="internet" aria-pressed="false">Internet</button>
+      </div>
+      <div class="legend"><span>Menos</span><span class="ramp" aria-hidden="true"></span><span>Más reclamos</span><b class="num" id="heatN"></b></div>
+      <div class="note" id="note" hidden><span>Mapa esquemático: esta vista no puede cargar mapas externos. Abrí el archivo en el navegador para ver el mapa real.</span></div>
+    </div>
+    <div class="detail" id="detail" hidden></div>
+  </section>
+
+  <section id="records" class="side" aria-label="Registros de llamadas">
+    <div class="head"><h2>Registros</h2><span class="meta num" id="recMeta"></span></div>
+    <div class="filters">
+      <input type="search" id="q" placeholder="Buscar socio, barrio, dirección…" aria-label="Buscar en registros">
+      <select id="opSel" aria-label="Filtrar por operario"><option value="">Todos los operarios</option></select>
+      <button class="mini" id="csv" title="Descargar los registros filtrados">Exportar CSV</button>
+    </div>
+    <div class="scroll" id="recScroll">
+      <div class="grp"><span class="live"></span>En curso ahora<span class="n num" id="liveN"></span></div>
+      <ul class="hist" id="liveList"></ul>
+      <ul class="hist" id="recList"></ul>
+      <button class="mini" id="more" hidden></button>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+<script>
+/* ---------- Geografía (mismas coordenadas que el dashboard del operador) ---------- */
+const BOX={n:-29.380,s:-29.460,w:-66.900,e:-66.810}, W=880, H=900;
+const proj=(lat,lng)=>[(lng-BOX.w)/(BOX.e-BOX.w)*W,(BOX.n-lat)/(BOX.n-BOX.s)*H];
+const metros=(a,b)=>{const R=6371000,r=Math.PI/180,dLa=(b.lat-a.lat)*r,dLo=(b.lng-a.lng)*r;
+  const h=Math.sin(dLa/2)**2+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(h));};
+const RADIO_MATCH=600; // metros
+const BARRIOS=[["Centro",-29.4131,-66.8558,1.4],["Vargas",-29.4020,-66.8640,1],["Shincal",-29.4180,-66.8720,.9],
+["Cochangasta",-29.4330,-66.8830,.8],["Faldeo del Velasco",-29.4480,-66.8760,.7],["Antártida Argentina",-29.4400,-66.8560,1],
+["Facundo Quiroga",-29.4300,-66.8400,1.1],["Hospital",-29.4150,-66.8400,.9],["San Vicente",-29.4000,-66.8450,.8],
+["Santa Justina",-29.3900,-66.8550,.7],["Yacampis",-29.3950,-66.8780,.8],["Parque Industrial",-29.4520,-66.8280,.4]];
+const B=Object.fromEntries(BARRIOS.map(([n,lat,lng,w])=>[n,{n,lat,lng,w}]));
+
+/* ---------- Utilidades ---------- */
+const $=s=>document.querySelector(s);
+const DAY=864e5;
+const reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm=s=>String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+const hhmm=d=>d.toLocaleTimeString("es-AR",{hour:"2-digit",minute:"2-digit",hour12:false});
+const fmtDur=s=>Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0");
+const SVC=s=>s==="agua"?"Agua":"Internet";
+const color=s=>s==="agua"?"var(--agua)":"var(--net)";
+function dayLabel(d){
+  const t=new Date();t.setHours(0,0,0,0);const x=new Date(d);x.setHours(0,0,0,0);const n=Math.round((t-x)/DAY);
+  if(n===0) return "Hoy"; if(n===1) return "Ayer";
+  const s=x.toLocaleDateString("es-AR",{weekday:"long",day:"numeric",month:"long"});
+  return s[0].toUpperCase()+s.slice(1)+(x.getFullYear()!==t.getFullYear()?" de "+x.getFullYear():"");
+}
+const fechaLarga=d=>dayLabel(d)+", "+hhmm(d);
+
+/* PRNG con semilla: los datos simulados son siempre los mismos */
+const rnd=(s=>()=>{s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296})(20261021);
+const pick=a=>a[Math.floor(rnd()*a.length)];
+const gauss=()=>{let u=0,v=0;while(!u)u=rnd();while(!v)v=rnd();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);};
+const near=(p,m)=>({lat:p.lat+gauss()*m/111320,lng:p.lng+gauss()*m/(111320*Math.cos(p.lat*Math.PI/180))});
+
+/* ---------- Operarios ---------- */
+const OPS=[{id:1,n:"Lucía Ferreyra"},{id:2,n:"Martín Carrizo"},{id:3,n:"Valeria Oviedo"},
+           {id:4,n:"Diego Herrera"},{id:5,n:"Paula Agüero"},{id:6,n:"Nicolás Bazán"}];
+const opById=id=>OPS.find(o=>o.id===id);
+const opNum=id=>"Op. "+String(id).padStart(2,"0");
+const opName=id=>opById(id).n;
+
+/* ---------- Registros simulados (12 meses) ---------- */
+const NOMBRES=["María","José","Ana","Luis","Rosa","Carlos","Silvia","Jorge","Mónica","Ricardo","Laura","Héctor","Patricia","Daniel","Graciela","Sergio","Beatriz","Fernando","Norma","Walter","Claudia","Ramón","Liliana","Víctor","Alicia","Gustavo","Mirta","Hugo","Estela","Oscar"];
+const APELLIDOS=["Brizuela","Vera","Romero","Díaz","Luna","Mercado","Ocampo","Torres","Nieto","Agüero","Paz","Reinoso","Carrizo","Herrera","Quiroga","Páez","Moreno","Ávila","Sánchez","Gómez","Ferreyra","Bazán","Oviedo","Olivera","Castro","Villafañe","Corzo","Tello","Robledo","Chumbita"];
+const CALLES=["Av. Ramírez de Velasco","Av. Facundo Quiroga","Av. Ortiz de Ocampo","Av. Perón","Av. Rivadavia","Av. San Nicolás de Bari","Av. Castro Barros","Pelagio B. Luna","Bazán y Bustos","25 de Mayo","Copiapó","Hipólito Yrigoyen","Av. Angelelli","Santa Fe","Catamarca","Lamadrid","Joaquín V. González","Vélez Sársfield","Islas Malvinas","Benjamín de la Vega"];
+const SINT={agua:["Sin agua","Baja presión","Pérdida en vereda","Agua turbia","Medidor roto"],
+            internet:["Sin conexión","Conexión lenta","Cortes intermitentes","Router con luz roja"]};
+const socio=()=>pick(NOMBRES)+" "+pick(APELLIDOS);
+const nroSocio=()=>String(10000+Math.floor(rnd()*30000));
+const direccion=b=>`${pick(CALLES)} ${100+Math.floor(rnd()*24)*50+Math.floor(rnd()*50)}, B° ${b}`;
+const duracion=()=>Math.round(Math.max(45,150+gauss()*70+(rnd()<.15?rnd()*240:0)));
+const pesoTotal=BARRIOS.reduce((a,b)=>a+b[3],0);
+function barrioAlAzar(){let x=rnd()*pesoTotal;for(const b of BARRIOS){x-=b[3];if(x<=0)return B[b[0]];}return B.Centro;}
+const T0=Date.now();
+function fechaHace(dias){ // una hora de atención (7 a 22 h) de hace `dias` días, nunca en el futuro
+  const d=new Date(T0-dias*DAY); d.setHours(7+Math.floor(rnd()*15),Math.floor(rnd()*60),Math.floor(rnd()*60),0);
+  if(d.getTime()>T0-60000) d.setTime(d.getTime()-DAY);
+  return d;
+}
+
+let records=[], rid=0;
+function addRec(o){ const r=Object.assign({id:++rid},o);
+  r._q=norm([r.socio,r.nro,r.barrio,r.direccion,r.sintoma,opName(r.op),opNum(r.op),r.res].join(" "));
+  return r; }
+
+// Demanda de fondo: todos los días, todos los barrios
+for(let d=0;d<365;d++){
+  const m=new Date(T0-d*DAY).getMonth(), verano=m===11||m<=1;
+  const n=4+Math.floor(rnd()*4)+(verano?2:0);
+  for(let k=0;k<n;k++){
+    const b=barrioAlAzar(), s=rnd()<(verano?.68:.52)?"agua":"internet", p=near(b,330), x=rnd();
+    const res=x<.55?"Reclamo nuevo":x<.8?"Unido a incidente":x<.95?"Consulta resuelta":"Descartada";
+    const esRec=res.startsWith("Reclamo")||res.startsWith("Unido");
+    records.push(addRec({fecha:fechaHace(d),socio:socio(),nro:nroSocio(),servicio:s,sintoma:pick(SINT[s]),barrio:b.n,
+      direccion:direccion(b.n),lat:p.lat,lng:p.lng,op:1+Math.floor(rnd()*6),dur:duracion(),res,
+      estado:!esRec?"—":d<1?"Abierto":d<3?"En revisión":"Resuelto"}));
+  }
+}
+// Incidentes masivos: generan las zonas calientes de cada período
+const EVENTOS=[
+ {d:3,len:2,b:"Cochangasta",s:"agua",sin:"Pérdida en vereda",n:18,est:"Técnico en camino"},
+ {d:5,len:3,b:"Facundo Quiroga",s:"internet",sin:"Conexión lenta",n:24,est:"En revisión"},
+ {d:12,len:4,b:"Faldeo del Velasco",s:"agua",sin:"Agua turbia",n:46},
+ {d:20,len:2,b:"Parque Industrial",s:"internet",sin:"Sin conexión",n:22},
+ {d:26,len:3,b:"Santa Justina",s:"agua",sin:"Sin agua",n:36},
+ {d:62,len:5,b:"Yacampis",s:"internet",sin:"Sin conexión",n:64},
+ {d:112,len:6,b:"San Vicente",s:"agua",sin:"Sin agua",n:92},
+ {d:150,len:4,b:"Centro",s:"internet",sin:"Cortes intermitentes",n:74},
+ {d:280,len:10,b:"Antártida Argentina",s:"agua",sin:"Sin agua",n:150},
+ {d:310,len:6,b:"Hospital",s:"agua",sin:"Baja presión",n:96}];
+EVENTOS.forEach(e=>{
+  const c=near(B[e.b],160);
+  for(let k=0;k<e.n;k++){
+    const dia=Math.max(0,e.d-Math.floor(rnd()**1.8*e.len)), p=near(c,210);
+    records.push(addRec({fecha:fechaHace(dia),socio:socio(),nro:nroSocio(),servicio:e.s,sintoma:e.sin,barrio:e.b,
+      direccion:direccion(e.b),lat:p.lat,lng:p.lng,op:1+Math.floor(rnd()*6),dur:duracion(),
+      res:k===0?"Reclamo nuevo":"Unido a incidente",estado:e.est||"Resuelto"}));
+  }
+});
+// Reclamos de hoy: los mismos incidentes que ve el operador en su dashboard
+const incidents=[
+ {id:142,servicio:"agua",sintoma:"Baja presión",barrio:"Vargas",estado:"Técnico en camino"},
+ {id:141,servicio:"agua",sintoma:"Sin agua",barrio:"Hospital",estado:"Abierto"},
+ {id:140,servicio:"internet",sintoma:"Conexión lenta",barrio:"Facundo Quiroga",estado:"Abierto"},
+ {id:139,servicio:"internet",sintoma:"Sin conexión",barrio:"Centro",estado:"En revisión"},
+ {id:137,servicio:"agua",sintoma:"Pérdida en vereda",barrio:"Cochangasta",estado:"Abierto"},
+ {id:136,servicio:"agua",sintoma:"Agua turbia",barrio:"Faldeo del Velasco",estado:"Abierto"},
+ {id:133,servicio:"internet",sintoma:"Sin conexión",barrio:"Yacampis",estado:"Resuelto"}];
+const inc=id=>incidents.find(i=>i.id===id);
+const HOY=[
+ [142,-29.4018,-66.8645,"Nélida Brizuela",18],[142,-29.4027,-66.8631,"Oscar Vera",14],[142,-29.4011,-66.8628,"Hilda Romero",11],[142,-29.4024,-66.8655,"Ramón Díaz",6],
+ [141,-29.4152,-66.8398,"Teresa Luna",25],[140,-29.4302,-66.8405,"Jorge Mercado",41],
+ [139,-29.4128,-66.8549,"Librería Sarmiento",33],[139,-29.4137,-66.8540,"Clara Ocampo",29],[139,-29.4133,-66.8561,"Miguel Torres",21],
+ [137,-29.4331,-66.8828,"Aurora Nieto",52],[136,-29.4478,-66.8764,"Pedro Agüero",64],[136,-29.4486,-66.8751,"Susana Paz",58],
+ [133,-29.3951,-66.8779,"Carlos Reinoso",140]].sort((a,b)=>b[4]-a[4]);
+const vistos=new Set();
+HOY.forEach(([id,lat,lng,nom,min],k)=>{
+  const i=inc(id), nuevo=!vistos.has(id); vistos.add(id);
+  records.push(addRec({fecha:new Date(T0-min*60000),socio:nom,nro:nroSocio(),servicio:i.servicio,sintoma:i.sintoma,barrio:i.barrio,
+    direccion:direccion(i.barrio),lat,lng,op:[1,3,2,5,4,6,1,2,3,5,4,6,1][k],dur:duracion(),
+    res:(nuevo?"Reclamo nuevo #":"Unido a #")+id,inc:id,estado:i.estado}));
+});
+incidents.forEach(i=>{const cs=records.filter(r=>r.inc===i.id);
+  i.lat=cs.reduce((a,c)=>a+c.lat,0)/cs.length; i.lng=cs.reduce((a,c)=>a+c.lng,0)/cs.length;});
+records.sort((a,b)=>b.fecha-a.fecha);
+
+/* ---------- Llamadas en curso (simulación; en producción llegan por WebSocket) ---------- */
+const SCRIPTS=[
+ {socio:"Marta Olivera",nro:"20418",lat:-29.4032,lng:-66.8622,barrio:"Vargas",lines:[
+  ["op","Cooperativa, buenas tardes. ¿En qué la puedo ayudar?"],
+  ["socio","Hola, m'hijo. Mirá, desde la mañana me sale un hilito de agua nomás, no puedo ni lavar.",{servicio:"Agua",sintoma:"Baja presión desde la mañana"}],
+  ["op","Entiendo, Marta. ¿Me dice la dirección, por favor?"],
+  ["socio","Estoy en el barrio Vargas, sobre Ramírez de Velasco al mil doscientos cuarenta.",{direccion:"Av. Ramírez de Velasco 1240, B° Vargas"}],
+  ["socio","Y tengo que tomar unos remedios, así que me preocupa.",{urgencia:"Alta: adulta mayor, necesita agua para medicación"}],
+  ["op","Quédese tranquila, ya lo estoy viendo acá."]]},
+ {socio:"Rubén Páez",nro:"31077",lat:-29.4405,lng:-66.8570,barrio:"Antártida Argentina",lines:[
+  ["op","Cooperativa, buenas tardes."],
+  ["socio","Buenas. Se me cortó el internet, el aparatito tiene una luz roja prendida.",{servicio:"Internet",sintoma:"Sin conexión, luz roja en el router"}],
+  ["op","¿Desde cuándo está así, don Rubén?"],
+  ["socio","Desde hace una hora más o menos. Yo vivo en el Antártida Argentina, calle Islas Malvinas 355.",{direccion:"Islas Malvinas 355, B° Antártida Argentina"}],
+  ["socio","No es urgente, pero mi nieta lo usa para la escuela.",{urgencia:"Media"}],
+  ["op","Perfecto, le tomo el reclamo."]]},
+ {socio:"Elvira Nieto",nro:"18830",lat:-29.4142,lng:-66.8532,barrio:"Centro",lines:[
+  ["op","Cooperativa, buenas tardes. ¿Con quién hablo?"],
+  ["socio","Con Elvira Nieto. Estoy sin internet en el negocio, no me anda el posnet.",{servicio:"Internet",sintoma:"Sin conexión, no funciona el posnet"}],
+  ["op","¿En qué dirección está el negocio?"],
+  ["socio","En Pelagio B. Luna 640, a dos cuadras de la plaza.",{direccion:"Pelagio B. Luna 640, Centro"}],
+  ["socio","Necesito que lo arreglen hoy porque no puedo cobrar.",{urgencia:"Alta: comercio sin poder cobrar"}],
+  ["op","Ya reviso si hay algo reportado en la zona."]]},
+ {socio:"Hugo Carrizo",nro:"27514",lat:-29.4176,lng:-66.8731,barrio:"Shincal",lines:[
+  ["op","Cooperativa, buenas tardes."],
+  ["socio","Buenas, le hablo porque en la esquina de mi casa está saliendo un montón de agua de la vereda.",{servicio:"Agua",sintoma:"Pérdida en vereda, caudal alto"}],
+  ["op","¿Me pasa la dirección exacta?"],
+  ["socio","Benjamín de la Vega 980, en el Shincal, casi esquina con la avenida.",{direccion:"Benjamín de la Vega 980, B° Shincal"}],
+  ["socio","Ya se está inundando la calle, los autos pasan y salpican todo.",{urgencia:"Alta: pérdida en vía pública"}],
+  ["op","Le tomo el reclamo y aviso a la cuadrilla."]]},
+ {socio:"Graciela Moreno",nro:"15902",lat:-29.4006,lng:-66.8452,barrio:"San Vicente",lines:[
+  ["op","Cooperativa, buenas tardes. ¿En qué la ayudo?"],
+  ["socio","Hola, el internet se me corta a cada rato, cada media hora más o menos.",{servicio:"Internet",sintoma:"Cortes intermitentes cada media hora"}],
+  ["op","¿Me confirma el domicilio?"],
+  ["socio","Hipólito Yrigoyen 455, en San Vicente.",{direccion:"Hipólito Yrigoyen 455, B° San Vicente"}],
+  ["socio","No es grave, pero trabajo desde casa y me complica.",{urgencia:"Baja"}],
+  ["op","Le dejo cargado el reclamo para que lo revisen."]]},
+ {socio:"Raúl Ávila",nro:"22367",lat:-29.4158,lng:-66.8392,barrio:"Hospital",lines:[
+  ["op","Cooperativa, buenas tardes."],
+  ["socio","Buenas. No tengo agua desde el mediodía, no sale nada de la canilla.",{servicio:"Agua",sintoma:"Sin agua desde el mediodía"}],
+  ["op","¿En qué dirección, don Raúl?"],
+  ["socio","Copiapó 1320, cerca del hospital.",{direccion:"Copiapó 1320, B° Hospital"}],
+  ["socio","Somos cinco en la casa, con dos chicos chicos.",{urgencia:"Media: familia con niños"}],
+  ["op","Ya lo veo, hay más vecinos con el mismo problema."]]}];
+
+let live=[], liveSeq=0, nextInc=143, nextStartAt=T0+9000;
+function mkLive(si,op,elapsed,shownN){
+  const c={id:++liveSeq,s:SCRIPTS[si],op,t0:Date.now()-elapsed*1000,shown:[],ficha:{},fresh:[],nextAt:Date.now()+1800+rnd()*2500};
+  for(let i=0;i<shownN;i++) advance(c); c.fresh=[]; return c;
+}
+function advance(c){ const l=c.s.lines[c.shown.length]; c.shown.push(l); c.fresh=l[2]?Object.keys(l[2]):[]; if(l[2]) Object.assign(c.ficha,l[2]); }
+const secs=c=>(Date.now()-c.t0)/1000;
+live=[mkLive(0,1,131,4),mkLive(2,3,64,2),mkLive(1,5,22,1)];
+let nextScript=3;
+
+function startLive(){
+  if(live.length>=4) return;
+  const libres=OPS.filter(o=>!live.some(c=>c.op===o.id)); if(!libres.length) return;
+  let si=nextScript; for(let k=0;k<SCRIPTS.length&&live.some(c=>c.s===SCRIPTS[si%SCRIPTS.length]);k++) si++;
+  nextScript=si+1;
+  const c=mkLive(si%SCRIPTS.length,pick(libres).id,0,0); c.nextAt=Date.now()+2200; live.push(c);
+}
+function endLive(c){
+  live=live.filter(x=>x!==c);
+  const s=c.ficha.servicio.toLowerCase(); let best=null;
+  incidents.forEach(i=>{ if(i.servicio!==s||i.estado==="Resuelto") return;
+    const d=metros(c.s,i); if(d<=RADIO_MATCH&&(!best||d<best.d)) best={i,d}; });
+  let id, res;
+  if(best){ id=best.i.id; res="Unido a #"+id; }
+  else { id=nextInc++; res="Reclamo nuevo #"+id;
+    incidents.unshift({id,servicio:s,sintoma:c.ficha.sintoma.split(/[,:]/)[0],barrio:c.s.barrio,estado:"Abierto",lat:c.s.lat,lng:c.s.lng}); }
+  const r=addRec({fecha:new Date(),socio:c.s.socio,nro:c.s.nro,servicio:s,sintoma:c.ficha.sintoma.split(/[,:]/)[0],
+    barrio:c.s.barrio,direccion:c.ficha.direccion,lat:c.s.lat,lng:c.s.lng,op:c.op,dur:Math.round(secs(c)),res,inc:id,
+    estado:inc(id).estado,urgencia:c.ficha.urgencia,transcript:c.shown});
+  records.unshift(r); flashId=r.id;
+  if(selLive===c.id){ selLive=null; showRecord(r.id,false); }
+}
+
+/* ---------- Estado de la vista ---------- */
+const PER={dia:DAY,semana:7*DAY,mes:30*DAY,anio:365*DAY};
+const PER_LBL={dia:"Últimas 24 h",semana:"Últimos 7 días",mes:"Últimos 30 días",anio:"Últimos 12 meses"};
+let period="dia", svc="todos", limit=150, selRec=null, selLive=null, flashId=null, visibles=[];
+const base=()=>{const desde=Date.now()-PER[period]; return records.filter(r=>r.fecha>=desde&&(svc==="todos"||r.servicio===svc));};
+
+/* ---------- Mapa ---------- */
+function baseMap(){
+  const P=(lat,lng)=>proj(lat,lng).map(n=>n.toFixed(0)).join(",");
+  const plaza=proj(-29.4131,-66.8558);
+  return `
+  <defs>
+    <pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(4)">
+      <path d="M26 0H0V26" fill="none" stroke="var(--street)" stroke-width="1"/></pattern>
+    <pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(60)">
+      <path d="M0 0V9" stroke="var(--road)" stroke-width="1" opacity=".5"/></pattern>
+    <clipPath id="urb"><path id="urbPath" d="M190 150 Q330 40 560 70 Q770 110 790 330 Q820 560 720 760 Q600 880 400 850 Q230 830 170 640 Q110 400 190 150Z"/></clipPath>
+  </defs>
+  <rect width="${W}" height="${H}" fill="var(--land)"/>
+  <path d="M0 0H120 Q150 120 110 250 Q150 380 120 520 Q160 680 100 900H0Z" fill="var(--sierra)"/>
+  <path d="M0 0H120 Q150 120 110 250 Q150 380 120 520 Q160 680 100 900H0Z" fill="url(#hatch)"/>
+  <text x="58" y="470" font-size="14" transform="rotate(-90 58 470)" text-anchor="middle" letter-spacing="3">Sierra de Velasco</text>
+  <use href="#urbPath" fill="var(--urban)"/>
+  <rect width="${W}" height="${H}" fill="url(#grid)" clip-path="url(#urb)"/>
+  <polyline points="${P(-29.460,-66.818)} ${P(-29.435,-66.826)} ${P(-29.410,-66.829)} ${P(-29.380,-66.836)}" fill="none" stroke="var(--road)" stroke-width="5"/>
+  <text x="${proj(-29.425,-66.822)[0]}" y="${proj(-29.425,-66.822)[1]}" font-size="12">RN 38</text>
+  <polyline points="${P(-29.4131,-66.8558)} ${P(-29.400,-66.872)} ${P(-29.388,-66.890)} ${P(-29.380,-66.899)}" fill="none" stroke="var(--road)" stroke-width="3.5"/>
+  <text x="${proj(-29.386,-66.889)[0]+8}" y="${proj(-29.386,-66.889)[1]}" font-size="12">RN 75</text>
+  <rect x="${plaza[0]-9}" y="${plaza[1]-9}" width="18" height="18" fill="var(--ok)" opacity=".45" transform="rotate(4 ${plaza[0]} ${plaza[1]})"/>
+  ${BARRIOS.map(([n,la,ln])=>{const[x,y]=proj(la,ln);return `<text x="${x}" y="${y+30}" font-size="13" text-anchor="middle" font-weight="600" opacity=".8">${n}</text>`}).join("")}`;
+}
+function shape(s,x,y,r,attrs){
+  return s==="agua"?`<circle cx="${x}" cy="${y}" r="${r}" ${attrs}/>`
+    :`<rect x="${x-r*.9}" y="${y-r*.9}" width="${r*1.8}" height="${r*1.8}" transform="rotate(45 ${x} ${y})" ${attrs}/>`;
+}
+const bounds=L.latLngBounds([BOX.s,BOX.w],[BOX.n,BOX.e]);
+const map=L.map("map",{zoomControl:false,zoomSnap:.25}).fitBounds(bounds);
+L.control.zoom({position:"bottomright"}).addTo(map);
+map.attributionControl.setPrefix(false);
+/* Clave gratuita de CARTO (carto.com/basemaps/apikey) para su estilo oscuro; vacía = OpenStreetMap oscurecido */
+const CARTO_KEY="";
+const tiles=(CARTO_KEY
+  ? L.tileLayer("https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png?key="+encodeURIComponent(CARTO_KEY),
+      {maxZoom:19,attribution:"© OpenStreetMap, © CARTO"})
+  : L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {maxZoom:19,className:"osm-dark",attribution:"© OpenStreetMap contributors"})).addTo(map);
+let tilesOk=false, esquema=false;
+tiles.on("tileload",()=>tilesOk=true);
+tiles.on("tileerror",()=>{if(!tilesOk) usarEsquema();});
+setTimeout(()=>{if(!tilesOk) usarEsquema();},6000);
+function usarEsquema(){
+  if(esquema) return; esquema=true; map.removeLayer(tiles);
+  const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.setAttribute("preserveAspectRatio","none"); svg.innerHTML=baseMap();
+  L.svgOverlay(svg,bounds).addTo(map).bringToBack();
+  map.setMaxBounds(bounds.pad(.15)); map.setMinZoom(map.getBoundsZoom(bounds)-.5);
+  $("#note").hidden=false;
+}
+/* Mapa de calor: la escala se recalcula en cada período para que siempre se vea dónde se concentra */
+const css=getComputedStyle(document.documentElement), cv=n=>css.getPropertyValue(n).trim();
+const heat=L.heatLayer?L.heatLayer([],{radius:18,blur:16,minOpacity:.14,maxZoom:Math.round(map.getZoom()),
+  gradient:{.15:cv("--h1"),.4:cv("--h2"),.62:cv("--h3"),.82:cv("--h4"),1:cv("--h5")}}).addTo(map):null;
+function picoDensidad(pts){ // máximo de reclamos dentro de un blob (celda del tamaño del radio del calor)
+  if(!heat) return 1;
+  const z=heat.options.maxZoom, mpp=40075016.7*Math.cos(29.42*Math.PI/180)/2**(z+8), cel=heat._heat._r*mpp;
+  const dLa=cel/111320, dLn=cel/(111320*Math.cos(29.42*Math.PI/180)), g=new Map(); let m=1;
+  for(const off of [0,.5]) pts.forEach(([la,ln])=>{const k=off+":"+Math.floor(la/dLa+off)+","+Math.floor(ln/dLn+off);
+    const v=(g.get(k)||0)+1; g.set(k,v); if(v>m) m=v;});
+  return m;
+}
+const selLayer=L.layerGroup().addTo(map), liveLayer=L.layerGroup().addTo(map);
+function renderHeat(rows){
+  const pts=rows.map(r=>[r.lat,r.lng,1]);
+  $("#heatN").textContent=rows.length.toLocaleString("es-AR");
+  if(heat){ heat.setOptions({max:Math.max(1.5,picoDensidad(pts)*.32)}); heat.setLatLngs(pts); }
+}
+function renderLivePins(){
+  liveLayer.clearLayers();
+  live.filter(c=>c.ficha.direccion).forEach(c=>{
+    const s=c.ficha.servicio.toLowerCase();
+    L.marker(c.s,{zIndexOffset:1000,title:`En curso: ${c.s.socio}, atiende ${opName(c.op)}`,icon:L.divIcon({className:"pin livepin",iconSize:[26,26],iconAnchor:[13,13],
+      html:`<svg viewBox="0 0 26 26" width="26" height="26" style="overflow:visible">${reduce?"":`<circle class="pulse" cx="13" cy="13" r="11" fill="none" stroke="${color(s)}" stroke-width="3"/>`}${shape(s,13,13,9,`fill="${color(s)}" stroke="#fff" stroke-width="2.5"`)}</svg><span>${opNum(c.op)}</span>`})})
+      .on("click",()=>showLive(c.id)).addTo(liveLayer);
+  });
+}
+
+/* ---------- Resumen ---------- */
+function renderSummary(rows){
+  $("#sumMeta").textContent=PER_LBL[period]+(svc==="todos"?"":" · "+SVC(svc));
+  const recl=rows.filter(r=>/^(Reclamo|Unido)/.test(r.res)).length;
+  const dm=rows.length?rows.reduce((a,r)=>a+r.dur,0)/rows.length:0;
+  $("#kpis").innerHTML=[["Llamadas",rows.length.toLocaleString("es-AR")],
+    ["Reclamos",recl.toLocaleString("es-AR")+(rows.length?` <small>${Math.round(recl/rows.length*100)}%</small>`:"")],
+    ["Duración media",rows.length?fmtDur(dm):"—"],["En curso ahora",live.length]]
+    .map(([k,v])=>`<div class="kpi"><dt>${k}</dt><dd class="num">${v}</dd></div>`).join("");
+  const g={}; rows.forEach(r=>{(g[r.barrio]??={a:0,i:0})[r.servicio==="agua"?"a":"i"]++;});
+  const top=Object.entries(g).map(([n,c])=>({n,...c,t:c.a+c.i})).sort((a,b)=>b.t-a.t).slice(0,6);
+  const mx=top.length?top[0].t:1;
+  $("#rankLeg").innerHTML=svc==="todos"?`<span class="tag agua">Agua</span><span class="tag internet" style="margin:0">Internet</span>`:"";
+  $("#rank").innerHTML=top.length?top.map(b=>`<li><button data-b="${esc(b.n)}" title="Ver ${esc(b.n)} en el mapa y filtrar registros">
+     <span class="nm">${esc(b.n)}</span><span class="ct num">${b.t}</span>
+     <span class="bars">${b.a?`<i style="width:${b.a/mx*100}%;background:var(--agua)"></i>`:""}${b.i?`<i style="width:${b.i/mx*100}%;background:var(--net)"></i>`:""}</span>
+   </button></li>`).join(""):`<li class="empty-l">Sin reclamos en el período.</li>`;
+}
+function renderOps(rows){
+  const sel=+$("#opSel").value||0;
+  $("#ops").innerHTML=OPS.map(o=>{
+    const mine=rows.filter(r=>r.op===o.id), c=live.find(x=>x.op===o.id);
+    const dm=mine.length?fmtDur(mine.reduce((a,r)=>a+r.dur,0)/mine.length):"—";
+    return `<li><button data-op="${o.id}" class="${sel===o.id?"sel":""}" title="Filtrar registros de ${esc(o.n)}">
+      <span class="dot ${c?"busy":""}"></span><span class="nm">${esc(o.n)} <span class="ct">${opNum(o.id)}</span></span>
+      <span class="ct num" title="Llamadas atendidas en el período">${mine.length.toLocaleString("es-AR")}</span>
+      <span class="st ${c?"busy":""}">${c?`En llamada con ${esc(c.s.socio)}, <span class="num" data-timer="${c.id}">${fmtDur(secs(c))}</span>`:`Disponible · <span class="num">${dm}</span> prom.`}</span>
+    </button></li>`;}).join("");
+}
+
+/* ---------- Registros ---------- */
+function renderLive(){
+  $("#liveN").textContent=live.length?live.length+(live.length===1?" llamada":" llamadas"):"";
+  $("#liveList").innerHTML=live.length?live.map(c=>{
+    const f=c.ficha, s=f.servicio?f.servicio.toLowerCase():null;
+    return `<li><button data-live="${c.id}" class="${selLive===c.id?"sel":""}">
+      <span class="h num" data-timer="${c.id}">${fmtDur(secs(c))}</span>
+      <span class="who"><span class="live"></span>${esc(c.s.socio)}</span>
+      <span class="what">${s?`<span class="tag ${s}">${f.servicio}</span>`:""}${f.sintoma?esc(f.sintoma.split(/[,:]/)[0]):"Escuchando…"}${f.direccion?`, B° ${esc(c.s.barrio)}`:""}</span>
+      <span class="op">Atiende <b>${esc(opName(c.op))}</b> (${opNum(c.op)})</span>
+    </button></li>`;}).join(""):`<li class="empty-l">No hay llamadas en curso.</li>`;
+}
+function rowHTML(r){
+  return `<li><button data-r="${r.id}" class="${selRec===r.id?"sel":""}${flashId===r.id?" new":""}">
+    <span class="h num">${hhmm(r.fecha)}</span>
+    <span class="who">${esc(r.socio)}</span>
+    <span class="what"><span class="tag ${r.servicio}">${SVC(r.servicio)}</span>${esc(r.sintoma)}, B° ${esc(r.barrio)}</span>
+    <span class="op"><b>${esc(opName(r.op))}</b> · <span class="num">${fmtDur(r.dur)}</span> · ${esc(r.res)}</span>
+  </button></li>`;
+}
+function renderList(rows){
+  const q=norm($("#q").value.trim()), op=+$("#opSel").value||0;
+  visibles=rows.filter(r=>(!op||r.op===op)&&(!q||r._q.includes(q)));
+  $("#recMeta").textContent=visibles.length.toLocaleString("es-AR")+" · "+PER_LBL[period].toLowerCase();
+  let html="", last="";
+  visibles.slice(0,limit).forEach(r=>{const k=r.fecha.toDateString();
+    if(k!==last){ last=k; const n=visibles.filter(x=>x.fecha.toDateString()===k).length;
+      html+=`<li class="grp">${dayLabel(r.fecha)}<span class="n num">${n}</span></li>`; }
+    html+=rowHTML(r);});
+  $("#recList").innerHTML=html||`<li class="empty-l">No hay registros con estos filtros.</li>`;
+  const more=$("#more"); more.hidden=visibles.length<=limit;
+  more.textContent=`Mostrar ${Math.min(150,visibles.length-limit)} más de ${(visibles.length-limit).toLocaleString("es-AR")}`;
+  flashId=null;
+}
+function renderAll(){ const rows=base(); renderSummary(rows); renderOps(rows); renderHeat(rows); renderLive(); renderList(rows); renderLivePins(); }
+
+/* ---------- Detalle sobre el mapa ---------- */
+const kv=(k,v,cls="")=>`<div><dt>${k}</dt><dd class="${cls}">${v}</dd></div>`;
+function cerrarDetalle(){ selRec=null; selLive=null; $("#detail").hidden=true; selLayer.clearLayers();
+  document.querySelectorAll(".hist button.sel").forEach(b=>b.classList.remove("sel")); }
+function enfocar(p){ if(!map.getBounds().pad(-.15).contains(p)) map.panTo(p); }
+function showRecord(id,pan=true){
+  selRec=id; selLive=null; const r=records.find(x=>x.id===id), d=$("#detail"); if(!r) return;
+  d.hidden=false;
+  d.innerHTML=`<button class="x" aria-label="Cerrar detalle">×</button>
+    <h3>${esc(r.socio)}</h3>
+    <p class="s num">Socio N° ${r.nro} · ${fechaLarga(r.fecha)}</p>
+    <dl class="kv">${kv("Servicio",`<span class="tag ${r.servicio}">${SVC(r.servicio)}</span>${esc(r.sintoma)}`)}
+      ${kv("Dirección",esc(r.direccion))}${r.urgencia?kv("Urgencia",esc(r.urgencia)):""}
+      ${kv("Operario",`${esc(opName(r.op))} <span style="color:var(--ink2);font-weight:400">${opNum(r.op)}</span>`)}
+      ${kv("Duración",`<span class="num">${fmtDur(r.dur)}</span>`)}${kv("Resultado",esc(r.res))}
+      ${r.estado!=="—"?kv("Estado",esc(r.estado)):""}</dl>
+    ${r.transcript?`<div class="tr-title">Transcripción</div><div class="transcript">${trHTML(r.transcript,r.socio,r.op)}</div>`:""}`;
+  d.querySelector(".x").onclick=cerrarDetalle;
+  selLayer.clearLayers();
+  L.marker(r,{interactive:false,keyboard:false,zIndexOffset:900,icon:L.divIcon({className:"pin",iconSize:[24,24],iconAnchor:[12,12],
+    html:`<svg viewBox="0 0 24 24" width="24" height="24">${shape(r.servicio,12,12,8,`fill="${color(r.servicio)}" stroke="#fff" stroke-width="2.5"`)}</svg>`})}).addTo(selLayer);
+  if(pan) enfocar(r);
+  document.querySelectorAll(".hist button").forEach(b=>b.classList.toggle("sel",+b.dataset.r===id));
+}
+const trHTML=(lines,socio,op)=>lines.map(l=>`<p class="${l[0]==="op"?"op":"socio"}"><small>${l[0]==="op"?esc(opName(op)):esc(socio)}</small>${esc(l[1])}</p>`).join("");
+function showLive(id){
+  selLive=id; selRec=null; selLayer.clearLayers(); renderLiveDetail(true);
+  document.querySelectorAll(".hist button").forEach(b=>b.classList.toggle("sel",+b.dataset.live===id));
+}
+function renderLiveDetail(pan){
+  const c=live.find(x=>x.id===selLive), d=$("#detail"); if(!c) return;
+  const f=c.ficha, w=k=>f[k]?esc(f[k]):"Escuchando…", cl=k=>(f[k]?"":"wait")+(c.fresh.includes(k)?" new":"");
+  const tr=d.querySelector(".transcript"), abajo=!tr||tr.scrollHeight-tr.scrollTop-tr.clientHeight<30;
+  d.hidden=false;
+  d.innerHTML=`<button class="x" aria-label="Cerrar detalle">×</button>
+    <h3><span class="live"></span>${esc(c.s.socio)}</h3>
+    <p class="s">Socio N° ${c.s.nro} · atiende ${esc(opName(c.op))} (${opNum(c.op)}) · <span class="num" data-timer="${c.id}">${fmtDur(secs(c))}</span></p>
+    <dl class="kv">${kv("Servicio",w("servicio"),cl("servicio"))}${kv("Dirección",w("direccion"),cl("direccion"))}${kv("Síntoma",w("sintoma"),cl("sintoma"))}${kv("Urgencia",w("urgencia"),cl("urgencia"))}</dl>
+    <div class="tr-title">Transcripción en vivo</div><div class="transcript">${trHTML(c.shown,c.s.socio,c.op)}</div>`;
+  d.querySelector(".x").onclick=cerrarDetalle;
+  const t=d.querySelector(".transcript"); if(abajo) t.scrollTop=t.scrollHeight;
+  if(f.direccion&&(pan||c.fresh.includes("direccion"))) enfocar(c.s);
+}
+
+/* ---------- Eventos ---------- */
+document.querySelectorAll("#period button").forEach(b=>b.onclick=()=>{
+  period=b.dataset.p; limit=150; document.querySelectorAll("#period button").forEach(x=>x.setAttribute("aria-pressed",x===b)); renderAll();});
+document.querySelectorAll("#svc button").forEach(b=>b.onclick=()=>{
+  svc=b.dataset.f; limit=150; document.querySelectorAll("#svc button").forEach(x=>x.setAttribute("aria-pressed",x===b)); renderAll();});
+$("#opSel").innerHTML+=OPS.map(o=>`<option value="${o.id}">${esc(o.n)}</option>`).join("");
+let qT; $("#q").addEventListener("input",()=>{clearTimeout(qT);qT=setTimeout(()=>{limit=150;renderList(base());},150);});
+$("#opSel").onchange=()=>{limit=150; const rows=base(); renderList(rows); renderOps(rows);};
+$("#more").onclick=()=>{limit+=150; renderList(base());};
+$("#recList").addEventListener("click",e=>{const b=e.target.closest("button[data-r]"); if(b) showRecord(+b.dataset.r);});
+$("#liveList").addEventListener("click",e=>{const b=e.target.closest("button[data-live]"); if(b) showLive(+b.dataset.live);});
+$("#rank").addEventListener("click",e=>{const b=e.target.closest("button[data-b]"); if(!b) return;
+  const z=B[b.dataset.b]; $("#q").value=b.dataset.b; limit=150; renderList(base());
+  if(z) map.flyTo(z,Math.max(map.getZoom(),15),{duration:reduce?0:.6});});
+$("#ops").addEventListener("click",e=>{const b=e.target.closest("button[data-op]"); if(!b) return;
+  const s=$("#opSel"); s.value=s.value===b.dataset.op?"":b.dataset.op; s.onchange();});
+$("#csv").onclick=()=>{
+  const c=v=>`"${String(v).replace(/"/g,'""')}"`;
+  const lines=[["Fecha","Hora","Socio","N° socio","Servicio","Síntoma","Dirección","Barrio","Operario","Duración","Resultado","Estado"].map(c).join(";"),
+    ...visibles.map(r=>[r.fecha.toLocaleDateString("es-AR"),hhmm(r.fecha),r.socio,r.nro,SVC(r.servicio),r.sintoma,r.direccion,r.barrio,
+      opName(r.op),fmtDur(r.dur),r.res,r.estado].map(c).join(";"))];
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob(["﻿"+lines.join("\r\n")],{type:"text/csv;charset=utf-8"}));
+  a.download=`registros-${period}.csv`; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+};
+
+/* ---------- Bucle en vivo ---------- */
+function paso(){
+  const now=Date.now(); let cambio=false, nuevos=false;
+  live.slice().forEach(c=>{ if(now<c.nextAt) return;
+    if(c.shown.length<c.s.lines.length){ advance(c); c.nextAt=now+2600+rnd()*2800; cambio=true; if(selLive===c.id) renderLiveDetail(false); }
+    else { endLive(c); cambio=nuevos=true; }});
+  if(now>=nextStartAt){ const n=live.length; startLive(); nextStartAt=now+7000+rnd()*11000; if(live.length!==n) cambio=true; }
+  if(nuevos) renderAll();
+  else if(cambio){ renderLive(); renderLivePins(); const rows=base(); renderOps(rows);
+    $("#kpis .kpi:last-child dd").textContent=live.length; }
+  document.querySelectorAll("[data-timer]").forEach(el=>{const c=live.find(x=>x.id===+el.dataset.timer); if(c) el.textContent=fmtDur(secs(c));});
+}
+renderAll();
+const clock=()=>$("#clock").textContent=hhmm(new Date());
+clock(); setInterval(()=>{clock();paso();},1000);
+if(!heat) $("#note").hidden=false, $("#note span").textContent="No se pudo cargar el complemento del mapa de calor (leaflet.heat). Revisá la conexión.";
+</script>
+</body>
+</html>
